@@ -40,8 +40,43 @@ header{
   }
 }
 
+footer{
+  background: rgba(0,0,0,0);
+  display: flex !important;
+  justify-content: center;
+  padding-bottom: 20px;
+  
+  .inner{
+    display: flex;
+    align-items: center;
+
+    a{
+      text-decoration: none;
+      color: #fff;
+      font-size: 30px;
+      letter-spacing: 1.7px;
+      margin: 0;
+      transition: $colorTransition;
+
+      &:hover{
+        color: $mainRed;
+        transition: $colorTransition;
+      }
+
+      img{
+        max-width: 250px;
+        margin: 0 40px;
+      }
+    }
+  }
+}
+
 img{
   width: 100%;
   height: auto;
   display: block;
+}
+
+body{
+  background: #000 !important;
 }

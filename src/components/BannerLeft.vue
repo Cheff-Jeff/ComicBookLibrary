@@ -4,7 +4,6 @@
       type: String,
       required: true
     },
-
     Heading: {
       type: Boolean,
       default: true,
@@ -15,16 +14,16 @@
 
 <template>
   <section class="banner">
+    <div class="img-wrap">
+      <img src="@/assets/images/corner.png" alt="banner">
+    </div>
     <div class="text-wrap">
       <h1 v-if="Heading">{{ Title }}</h1>
-      <h2 v-else>{{ Title }}</h2>
-    </div>
-    <div class="img-wrap">
-      <img src="@/assets/images/secBanner.png" alt="banner">
+      <h2 v-else="Heading">{{ Title }}</h2>
     </div>
   </section>
 </template>
 
 <style scoped lang="scss">
-  @import "@/assets/styles/components/Banner.scss";
+  @import "@/assets/styles/components/BannerLeft.scss";
 </style>
