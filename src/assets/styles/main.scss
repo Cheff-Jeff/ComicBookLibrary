@@ -1,0 +1,47 @@
+@import "./variables.scss";
+
+header{
+  display: flex;
+  width: 100%;
+  position: fixed;
+  background: $gradientHeader;
+  z-index: 999;
+  padding: 10px 20px;
+
+  .logo-wrap{
+    max-width: 150px;
+  }
+
+  nav{
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 50px;
+
+    a{
+      text-decoration: none !important;
+
+      span{
+        color: #fff;
+        font-family: $mainFont;
+        font-size: 25px;
+        letter-spacing: 1.5px;
+        margin: 0 10px;
+        transition: $colorTransition;
+      }
+
+      &:hover,
+      &.router-link-active{
+        span{
+          color: $mainRed;
+          transition: $colorTransition;
+        }
+      }
+    }
+  }
+}
+
+img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
