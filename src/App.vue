@@ -12,8 +12,8 @@
       <RouterLink to="/">
         <span>Home</span>
       </RouterLink>
-      <RouterLink to="/about">
-        <span>About</span>
+      <RouterLink to="/comics">
+        <span>Comics</span>
       </RouterLink>
     </nav>
 
@@ -25,7 +25,16 @@
   </header>
   
   <main>
-    <RouterView />
+    <Suspense>
+      <template #default>
+        <RouterView />
+      </template>
+      <template #fallback>
+        <div class="loading">
+          <h1>Loading ...</h1>
+        </div>
+      </template>
+    </Suspense>
   </main>
 
   <footer>

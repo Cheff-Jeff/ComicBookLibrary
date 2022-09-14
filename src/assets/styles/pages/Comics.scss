@@ -1,0 +1,18 @@
+@import "../variables.scss";
+
+.comics{
+  padding: 150px 0 20px;
+
+  .lesser{
+    max-width: 90%;
+  }
+
+  .smaller{
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+
+  .comic{
+    width: 100%;
+  }
+}

@@ -1,7 +1,10 @@
 <script setup>
-import BannerRight from '../components/BannerRight.vue';
-import BannerLeft from '../components/BannerLeft.vue';
-import ComicMaster from '../components/ComicMaster.vue';
+  import BannerRight from '../components/BannerRight.vue';
+  import BannerLeft from '../components/BannerLeft.vue';
+  import ComicMaster from '../components/ComicMaster.vue';
+  import { useCache } from '../assets/javascript/fetchNewComics';
+
+  const comics = useCache("https://webshop.cheffjeff.online/wordpress/wp-json/wp/v2/products?per_page=10");
 </script>
 
 <template>
@@ -11,11 +14,11 @@ import ComicMaster from '../components/ComicMaster.vue';
       <div class="row">
         <div class="col-md-12">
           <div class="inner">
-            <ComicMaster Title="Test"/>
-            <ComicMaster Title="Test"/>
-            <ComicMaster Title="Test"/>
-            <ComicMaster Title="Test"/>
-            <ComicMaster Title="Test"/>
+            <ComicMaster 
+              v-for="comic in comics.slice(0,5)" 
+              :Title="comic.title.rendered"
+              :key="comic.id"
+            />
           </div>
         </div>
       </div>
@@ -29,35 +32,10 @@ import ComicMaster from '../components/ComicMaster.vue';
   <section class="popular">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3 smaller">
-          <ComicMaster Title="Test"/>
-        </div>
-        <div class="col-md-3 smaller">
-          <ComicMaster Title="Test"/>
-        </div>
-        <div class="col-md-3 smaller">
-          <ComicMaster Title="Test"/>
-        </div>
-        <div class="col-md-3 smaller">
-          <ComicMaster Title="Test"/>
-        </div>
-        <div class="col-md-3 smaller">
-          <ComicMaster Title="Test"/>
-        </div>
-        <div class="col-md-3 smaller">
-          <ComicMaster Title="Test"/>
-        </div>
-        <div class="col-md-3 smaller">
-          <ComicMaster Title="Test"/>
-        </div>
-        <div class="col-md-3 smaller">
-          <ComicMaster Title="Test"/>
-        </div>
-        <div class="col-md-3 smaller">
-          <ComicMaster Title="Test"/>
-        </div>
-        <div class="col-md-3 smaller">
-          <ComicMaster Title="Test"/>
+        <div 
+          class="col-md-3 smaller"
+          v-for="comic in comics">
+            <ComicMaster :Title="comic.title.rendered" :key="comic.id"/>
         </div>
       </div>
     </div>
