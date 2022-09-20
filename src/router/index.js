@@ -23,6 +23,16 @@ const router = createRouter({
       component: () => import('../views/ComicsView.vue')
     },
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/registration',
+      name: 'register',
+      component: () => import('../views/RegisterView.vue')
+    },
+    {
       //error 404 page
       path: '/:pathMatch(.*)*',
       name: 'NotFount',

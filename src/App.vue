@@ -9,12 +9,22 @@
     </div>
 
     <nav>
-      <RouterLink to="/">
-        <span>Home</span>
-      </RouterLink>
-      <RouterLink to="/comics">
-        <span>Comics</span>
-      </RouterLink>
+      <div class="links">
+        <RouterLink :to="{name: 'home'}">
+          <span>Home</span>
+        </RouterLink>
+        <RouterLink :to="{name: 'comcis'}">
+          <span>Comics</span>
+        </RouterLink>
+      </div>
+      <div class="account-links">
+        <RouterLink :to="{name: 'login'}">
+          <span>Login</span>
+        </RouterLink>
+        <RouterLink :to="{name: 'register'}">
+          <span>Sign up</span>
+        </RouterLink>
+      </div>
     </nav>
 
     <div class="account">

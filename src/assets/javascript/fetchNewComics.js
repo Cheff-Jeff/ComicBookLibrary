@@ -1,11 +1,13 @@
 import { ref } from 'vue';
+import axios from 'axios';
 
 export const useFetch = (url) => {
   const data = ref(null);
 
   const fetchData = async () => {
-    data.value = await fetch(url)
-      .then((r) => r.json());
+    await axios.get(url).then(
+      response => (data.value = response)
+    );
 
     localStorage.setItem('newComics',JSON.stringify(data.value));
   }
