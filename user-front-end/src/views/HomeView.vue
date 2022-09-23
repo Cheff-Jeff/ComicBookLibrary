@@ -15,7 +15,7 @@
         <div class="col-md-12">
           <div class="inner">
             <ComicMaster 
-              v-for="comic in comics.slice(0,5)" 
+              v-for="comic in comics" 
               :Title="comic.title.rendered"
               :key="comic.id"
             />

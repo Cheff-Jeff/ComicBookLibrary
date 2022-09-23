@@ -11,13 +11,15 @@
       type: String,
       default: "defaultComic.jpg",
     }
-  })
+  });
+
+  const img = new URL(`/src/assets/images/comics/${Image}`, import.meta.url)
 </script>
 
 <template>
   <div class="comic">
     <a href="#">
-      <img :src="'/src/assets/images/comics/'+ Image" alt="Comic book cover">
+      <img :src="img" alt="Comic book cover">
       <p>{{ Title }}</p>
     </a>
   </div>
