@@ -15,7 +15,7 @@
 <template>
   <section class="banner">
     <div class="img-wrap">
-      <img src="@/assets/images/corner.png" alt="banner">
+      <img src="/images/corner.png" alt="banner">
     </div>
     <div class="text-wrap">
       <h1 v-if="Heading">{{ Title }}</h1>

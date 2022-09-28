@@ -1,11 +1,13 @@
 <script setup>
-  import { RouterLink, RouterView } from 'vue-router'
+  import { RouterLink } from 'vue-router';
 </script>
 
 <template>
   <header>
     <div class="logo-wrap">
-      <RouterLink to="/"><img alt="logo" class="logo" src="/images/logo.png"/></RouterLink>
+      <RouterLink :to="{name: 'overview'}">
+        <img alt="logo" class="logo" src="@/assets/images/logo.png"/>
+      </RouterLink>
     </div>
 
     <nav>
@@ -33,25 +35,8 @@
       </svg>
     </div>
   </header>
-  
-  <main>
-    <Suspense>
-      <template #default>
-        <RouterView />
-      </template>
-      <template #fallback>
-        <div class="loading">
-          <h1>Loading ...</h1>
-        </div>
-      </template>
-    </Suspense>
-  </main>
-
-  <footer>
-    <div class="inner">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/"><img alt="logo" class="logo" src="/images/logo.png"/></RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-    </div>
-  </footer>
 </template>
+
+<style scoped lang="scss">
+
+</style>

@@ -11,7 +11,7 @@ import ComicMaster from '../components/ComicMaster.vue';
     <div class="container lesser">
       <div class="row">
         <div class="col-md-3">
-
+          <!-- filter gaat hier-->
         </div>
         <div class="col-md-9">
           <div class="row">

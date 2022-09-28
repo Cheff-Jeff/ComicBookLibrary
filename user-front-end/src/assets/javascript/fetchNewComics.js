@@ -1,15 +1,18 @@
 import { ref } from 'vue';
 import axios from 'axios';
 
-export const useFetch = (url) => {
+export const useFetch = (url, store) => {
   const data = ref(null);
 
   const fetchData = async () => {
     await axios.get(url).then(
-      response => (data.value = response)
-    );
+      response => (data.value = response.data)
+    )
 
-    localStorage.setItem('newComics',JSON.stringify(data.value));
+    if(store)
+    {
+      localStorage.setItem(store,JSON.stringify(data.value));
+    }
   }
 
   fetchData();
@@ -17,15 +20,15 @@ export const useFetch = (url) => {
   return data;
 }
 
-export const useCache = (url) => {
+export const useCache = (url, store) => {
   let data = ref(null);
 
   const fetchCache = () => {
-    if(localStorage.getItem('newComics') !== null){
-      data.value = JSON.parse(localStorage.getItem('newComics'));
+    if(localStorage.getItem(store) !== null){
+      data.value = JSON.parse(localStorage.getItem(store));
     }
     else{
-      data = useFetch(url);
+      data = useFetch(url, store);
     }
   }
 

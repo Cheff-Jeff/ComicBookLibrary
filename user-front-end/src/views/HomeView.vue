@@ -2,9 +2,10 @@
   import BannerRight from '../components/BannerRight.vue';
   import BannerLeft from '../components/BannerLeft.vue';
   import ComicMaster from '../components/ComicMaster.vue';
-  import { useCache } from '../assets/javascript/fetchNewComics';
+  import { useCache, useFetch } from '../assets/javascript/fetchNewComics';
 
-  const comics = useCache("https://webshop.cheffjeff.online/wordpress/wp-json/wp/v2/products?per_page=10");
+  const newComics = useCache("https://webshop.cheffjeff.online/wordpress/wp-json/wp/v2/products?per_page=5", "newComics");
+  const popComics = useCache("https://webshop.cheffjeff.online/wordpress/wp-json/wp/v2/products?per_page=10", "popComics");
 </script>
 
 <template>
@@ -15,7 +16,7 @@
         <div class="col-md-12">
           <div class="inner">
             <ComicMaster 
-              v-for="comic in comics" 
+              v-for="comic in newComics" 
               :Title="comic.title.rendered"
               :key="comic.id"
             />
@@ -34,7 +35,7 @@
       <div class="row">
         <div 
           class="col-md-3 smaller"
-          v-for="comic in comics">
+          v-for="comic in popComics">
             <ComicMaster :Title="comic.title.rendered" :key="comic.id"/>
         </div>
       </div>

@@ -20,7 +20,7 @@
       <h2 v-else>{{ Title }}</h2>
     </div>
     <div class="img-wrap">
-      <img src="@/assets/images/secBanner.png" alt="banner">
+      <img src="/images/secBanner.png" alt="banner">
     </div>
   </section>
 </template>

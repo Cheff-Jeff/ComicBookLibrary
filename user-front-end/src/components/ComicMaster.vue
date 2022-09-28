@@ -12,18 +12,36 @@
       default: "defaultComic.jpg",
     }
   });
-
-  const img = new URL(`/src/assets/images/comics/${Image}`, import.meta.url)
 </script>
 
 <template>
   <div class="comic">
     <a href="#">
-      <img :src="img" alt="Comic book cover">
+      <img :src="imgPath" alt="Comic book cover">
       <p>{{ Title }}</p>
     </a>
   </div>
 </template>
+
+<script>
+  export default {
+    data(){
+      return{
+        imgPath: ''
+      }
+    },
+    mounted() {
+      if(this.Image !== null)
+      {
+        this.imgPath = new URL(`/images/comics/${this.Image}`, import.meta.url).href
+      }
+      else
+      {
+        this.imgPath = new URL(`/images/comics/defaultComic.jpg`, import.meta.url).href
+      }
+    }
+  };
+</script>
 
 <style scoped lang="scss">
   @import "@/assets/styles/components/ComicMaster.scss";

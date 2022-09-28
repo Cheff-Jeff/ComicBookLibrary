@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <div class="page-wrap">
           <div class="background-wrapper">
-            <img src="@/assets/images/superhero.png" alt="user-icon">
+            <img src="/images/superhero.png" alt="user-icon">
             <LoginForm/>
             <div class="register-link">
               <RouterLink :to="{name: 'register'}" class="link">

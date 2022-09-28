@@ -11,7 +11,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-9">
-          <img src="@/assets/images/404.png">
+          <img src="/images/404.png">
           <div class="text-wrap">
             <p class="text-center">You broke something!</p>
             <p class="text-center">Just kidding...</p>
