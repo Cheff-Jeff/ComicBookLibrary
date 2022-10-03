@@ -6,6 +6,7 @@ import ComicMaster from '../components/ComicMaster.vue';
 <template>
   <BannerRight 
     Title="Browse comics."
+    :Heading="true"
   />
   <section class="comics">
     <div class="container lesser">

@@ -13,4 +13,8 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
+app.config.errorHandler = (err, vm, info) => {
+  
+}
+app.config.performance = true
 app.mount('#app')

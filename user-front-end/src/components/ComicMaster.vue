@@ -6,17 +6,20 @@
       type: String,
       required: true
     },
-
     Image: {
       type: String,
       default: "defaultComic.jpg",
+    },
+    Link: {
+      type: String,
+      required: true,
     }
   });
 </script>
 
 <template>
   <div class="comic">
-    <a href="#">
+    <a @click="teleport">
       <img :src="imgPath" alt="Comic book cover">
       <p>{{ Title }}</p>
     </a>
@@ -31,13 +34,11 @@
       }
     },
     mounted() {
-      if(this.Image !== null)
-      {
-        this.imgPath = new URL(`/images/comics/${this.Image}`, import.meta.url).href
-      }
-      else
-      {
-        this.imgPath = new URL(`/images/comics/defaultComic.jpg`, import.meta.url).href
+      this.imgPath = `/images/comics/${this.Image}`
+    },
+    methods: {
+      teleport() {
+        this.$router.push({ name: 'comicDetail', params: { slug: this.Link } })
       }
     }
   };

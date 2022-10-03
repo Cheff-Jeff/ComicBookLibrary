@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { routGaurd } from '../assets/javascript/fetchNewComics';
+import { ref } from 'vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,17 +12,27 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    },
-    {
       path: '/comics',
       name: 'comcis',
       component: () => import('../views/ComicsView.vue')
+    },
+    {
+      path: '/comics/:slug',
+      name: 'comicDetail',
+      beforeEnter: async (to, from, next) => {
+        const response = await routGaurd(`https://webshop.cheffjeff.online/wordpress/wp-json/wp/v2/products?slug=${to.params.slug}`)
+        if(response != 1)
+        {
+          next({ name: 'NotFount' })
+          return false
+        }
+        else
+        {
+          next();
+          return true
+        }
+      },
+      component: () => import('../views/ComicView.vue')
     },
     {
       path: '/login',

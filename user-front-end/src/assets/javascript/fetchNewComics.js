@@ -36,3 +36,13 @@ export const useCache = (url, store) => {
 
   return data;
 }
+
+export const routGaurd = async (url) => {
+  let result = null;
+  
+  await axios.get(url).then(response => (
+    result = response.data.length
+  ));
+
+  return result;
+}

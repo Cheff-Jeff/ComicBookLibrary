@@ -19,6 +19,7 @@
     Image: {
       type: String,
       default: "defaultComic.jpg",
+      required: true,
     },
     Publisher: {
       type: String,
@@ -30,18 +31,86 @@
       required: true,
       default: "Stan Lee",
     },
+    Artist: {
+      type: String,
+      required: true,
+      default: "Steve Mcniven",
+    },
+    CoverArtist: {
+      type: String,
+      required: true,
+      default: "Steve Mcniven",
+    },
   })
 </script>
 
 <template>
-  <div class="comic">
-    <a href="#">
-      <img :src="'/src/assets/images/comics/'+ Image" alt="Comic book cover">
-      <p>{{ Title }}</p>
-    </a>
-  </div>
+  <section class="content">
+    <div class="background" :style="{ 'background-image': `url(${imgPath})` }"></div>
+    <div class="comic-wrap">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="img-wrap">
+              <img :src="imgPath" alt="comic cover">
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="info">
+              <div class="wrap">
+                <h2>{{Title}}</h2>
+                <div class="info-block">
+                  <p>Writer:</p>
+                  <p>{{Writer}}</p>
+                </div>
+                <div class="info-block">
+                  <p>Publisher:</p>
+                  <p>{{Publisher}}</p>
+                </div>
+                <div class="info-block">
+                  <p>Artist:</p>
+                  <p>{{Artist}}</p>
+                </div>
+                <div class="info-block">
+                  <p>Cover artist:</p>
+                  <p>{{CoverArtist}}</p>
+                </div>
+              </div>
+              <div class="btn-wrap">
+                <button class="btn btn-custom">
+                  Add to library
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="desc">
+              <span v-html="Descriptin">
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
+<script>
+  export default {
+    data(){
+      return{
+        imgPath: ''
+      }
+    },
+    mounted() {
+      this.imgPath = `/images/comics/${this.Image}`
+    },
+    methods: {
+      
+    }
+  };
+</script>
+
 <style scoped lang="scss">
-  @import "@/assets/styles/components/ComicMaster.scss";
+  @import "@/assets/styles/components/ComicDetail.scss";
 </style>

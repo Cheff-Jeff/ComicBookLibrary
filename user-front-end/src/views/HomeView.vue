@@ -14,11 +14,12 @@
     <div class="container bigger">
       <div class="row">
         <div class="col-md-12">
-          <div class="inner">
+          <div class="inner" v-if="newComics">
             <ComicMaster 
               v-for="comic in newComics" 
               :Title="comic.title.rendered"
               :key="comic.id"
+              Link="alien-3"
             />
           </div>
         </div>
@@ -32,11 +33,12 @@
   />
   <section class="popular">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" v-if="popComics">
         <div 
           class="col-md-3 smaller"
-          v-for="comic in popComics">
-            <ComicMaster :Title="comic.title.rendered" :key="comic.id"/>
+          v-for="comic in popComics"
+          :key="comic.id">
+            <ComicMaster :Title="comic.title.rendered"/>
         </div>
       </div>
     </div>

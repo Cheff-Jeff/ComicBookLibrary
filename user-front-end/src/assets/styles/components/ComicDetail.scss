@@ -1,0 +1,85 @@
+@import "../variables.scss";
+@import "../components/Buttons.scss";
+
+.content{
+  position: relative;
+
+  .background{
+    opacity: .18;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 50%;
+    width: 100%;
+    min-height: 600px;
+    max-height: 600px;
+    overflow: hidden
+  }
+
+  .comic-wrap{
+    margin-top: -25%;
+
+    .img-wrap{
+      img{
+        position: relative;
+      }
+    }
+
+    .info{
+      margin-left: 40px;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      h2{
+        font-family: $mainFont;
+        color: $defauntTextColor;
+        letter-spacing: 3px;
+        font-size: 33px;
+        margin-bottom: 45px;
+      }
+
+      .info-block{
+        margin-bottom: 25px;
+        width: 49%;
+        float: left;
+        display: block;
+
+        p{
+          font-family: $mainFont;
+          color: $defauntTextColor;
+          font-size: 21px;
+          letter-spacing: 2px;
+          margin: 0;
+          min-height: 31px;
+
+          &:first-child {
+            font-size: 25px;
+            letter-spacing: 3px;
+          }
+        }
+      }
+
+      .wrap{
+        margin-bottom: 80px;
+      }
+
+      .btn-wrap{
+        position: sticky;
+        left: 0;
+        top: 40rem;
+      }
+    }
+
+    .desc{
+      margin-top: 50px;
+      font-family: $mainFont;
+      color: $defauntTextColor;
+      font-size: $defauntTextSize;
+      letter-spacing: $defauntLetterSpacing;
+      text-align: justify;
+      margin-bottom: 100px;
+    }
+  }
+}
