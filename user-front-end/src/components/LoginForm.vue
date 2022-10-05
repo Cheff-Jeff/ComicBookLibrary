@@ -1,3 +1,7 @@
+<script setup>
+  import { Login } from '../assets/javascript/authentication';
+</script>
+
 <template>
   <form @submit.prevent="submitHandler">
     <div class="wrap">
@@ -103,7 +107,15 @@
         this.validateEmail();
 
         if(this.emailError == '' && this.passwordError == ''){
-          console.log("submit");
+          const responce = Login(this.email, this.password);
+          if(responce){
+            console.log('Test')
+            this.$router.push('account');
+          }
+          else{
+            console.log('Error')
+            //error
+          }
         }
       }
     }

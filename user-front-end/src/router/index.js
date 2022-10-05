@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import { routGaurd } from '../assets/javascript/fetchNewComics';
+import { routGaurd, CheckLogin } from '../assets/javascript/Gaurd';
 import { ref } from 'vue';
 
 const router = createRouter({
@@ -43,6 +43,20 @@ const router = createRouter({
       path: '/registration',
       name: 'register',
       component: () => import('../views/RegisterView.vue')
+    },
+    {
+      path: '/account',
+      name: 'account',
+      beforeEnter: (to,from,next) => {
+        if(!CheckLogin()){
+          next({ name: 'login' })
+          return false
+        }
+        else{
+          next();
+        }
+      },
+      component: () => import('../views/AccountView.vue')
     },
     {
       //error 404 page
