@@ -109,11 +109,9 @@
         if(this.emailError == '' && this.passwordError == ''){
           const responce = Login(this.email, this.password);
           if(responce){
-            console.log('Test')
             this.$router.push('account');
           }
           else{
-            console.log('Error')
             //error
           }
         }
