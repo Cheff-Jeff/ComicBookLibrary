@@ -17,7 +17,7 @@
           <span>Comics</span>
         </RouterLink>
       </div>
-      <div class="account-links" v-if="checkAccount">
+      <!-- <div class="account-links" v-if="checkAccount">
         <RouterLink :to="{name: 'account'}">
           <span>Account</span>
         </RouterLink>
@@ -29,7 +29,7 @@
         <RouterLink :to="{name: 'register'}">
           <span>Sign up</span>
         </RouterLink>
-      </div>
+      </div> -->
     </nav>
 
     <div class="account">

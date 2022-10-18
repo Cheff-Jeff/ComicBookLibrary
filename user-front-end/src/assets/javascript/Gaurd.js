@@ -2,10 +2,17 @@ import axios from "axios";
 
 export const routGaurd = async (url) => {
   let result = null;
-  
-  await axios.get(url).then(response => (
-    result = response.data.length
-  ));
+  console.log(url)
+  try{
+    // await axios.get(url).then(response => (
+    //   result = response.data
+    // ));
+    await axios.get(url).then(result = true);
+  }
+  catch (error){
+    console.log(error);
+    result = false;
+  }
 
   return result;
 }
