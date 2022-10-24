@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ComicsBackend.Models
 {
@@ -27,5 +28,30 @@ namespace ComicsBackend.Models
 
         public int ArtistId { get; set; }
         public Artist Artist { get; set; }
+
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
+
+        public string UploadImageAsync() 
+        {
+            string path = "";
+            try
+            {
+                path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "Resources"));
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                using (var fileStream = new FileStream(Path.Combine(path, this.ImageFile.FileName), FileMode.Create))
+                {
+                    this.ImageFile.CopyToAsync(fileStream);
+                }
+                return path;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("file copy failed", ex);
+            }
+        }
     }
 }

@@ -21,15 +21,15 @@
         <RouterLink :to="{name: 'account'}">
           <span>Account</span>
         </RouterLink>
-      </div>
-      <div class="account-links" v-else>
+      </div> -->
+      <div class="account-links">
         <RouterLink :to="{name: 'login'}">
           <span>Login</span>
         </RouterLink>
         <RouterLink :to="{name: 'register'}">
           <span>Sign up</span>
         </RouterLink>
-      </div> -->
+      </div>
     </nav>
 
     <div class="account">

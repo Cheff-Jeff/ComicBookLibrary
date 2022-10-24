@@ -20,6 +20,7 @@
       :Title="comic.title"
       :Descriptin="comic.description"
       :Publisher="comic.publisher.name"
+      :Image="comic.image"
       :Writer="comic.writer.name"
       :Artist="comic.artist.name"
       :Cover-artist="comic.coverArtist.name"

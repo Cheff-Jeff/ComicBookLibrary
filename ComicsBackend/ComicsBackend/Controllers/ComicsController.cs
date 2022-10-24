@@ -45,11 +45,21 @@ namespace ComicsBackend.Controllers
         {
             _context.Entry(comic).State = EntityState.Modified;
 
+            string path = comic.UploadImageAsync().ToString();
+
             await _context.Comics.AddAsync(comic);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { id = comic.Id }, comic);
         }
+
+        //[HttpPost("{img}")]
+        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public async Task<IActionResult> UploadFile(IFormFile img)
+        //{
+            
+        //}
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

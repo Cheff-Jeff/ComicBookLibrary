@@ -102,7 +102,7 @@
 
         if(this.emailError == '' && this.passwordError == ''){
           const authorized = checkUser(this.email, this.password);
-          authorized ? this.$router.push("about") : 
+          authorized ? this.$router.push("overview") : 
           console.log("not authorized")
           //this.authorizedError = "your email or password was incorrect. Please try again."
         }

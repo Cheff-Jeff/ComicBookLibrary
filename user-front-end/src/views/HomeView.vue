@@ -18,6 +18,7 @@
               :Title="comic.title"
               :key="comic.id"
               :Link="comic.id"
+              :Image="comic.image"
             />
           </div>
         </div>
