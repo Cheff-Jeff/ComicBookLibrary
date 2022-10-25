@@ -21,7 +21,6 @@ const router = createRouter({
       name: 'comicDetail',
       beforeEnter: async (to, from, next) => {
         const response = await routGaurd(`${import.meta.env.VITE_API_COMICS_URL}/${to.params.slug}`)
-        console.log(response);
         if(!response)
         {
           next({ name: 'NotFount' })

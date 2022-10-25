@@ -1,5 +1,5 @@
 <script setup>
-  import { checkUser } from "../assets/javascript/authentication"
+  import { checkUser } from "../../assets/javascript/authentication"
 </script>
 
 <template>

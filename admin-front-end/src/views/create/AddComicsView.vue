@@ -1,7 +1,7 @@
 <script setup>
-  import Header from '../components/Header.vue';
-  import ComicsForm from '../components/ComicForm.vue'
-import ComicForm from '../components/ComicForm.vue';
+  import Header from '../../components/Header.vue';
+  import ComicsForm from '../../components/forms/ComicForm.vue'
+import ComicForm from '../../components/forms/ComicForm.vue';
 </script>
 
 <template>

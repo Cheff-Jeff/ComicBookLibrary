@@ -1,6 +1,6 @@
 <script setup>
-  import { useFetch } from '../assets/javascript/fetchNewComics';
-  import { uploadImage } from '../assets/javascript/uploadImage'; 
+  import { useFetch } from '../../assets/javascript/fetchNewComics';
+  import { uploadImage } from '../../assets/javascript/uploadImage'; 
 
   const publichers = useFetch(`${import.meta.env.VITE_API_PUBLICHERS_URL}`);
   const writers = useFetch(`${import.meta.env.VITE_API_WRITHERS_URL}`);
