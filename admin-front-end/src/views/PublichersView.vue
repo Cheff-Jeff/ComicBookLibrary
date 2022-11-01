@@ -4,22 +4,22 @@
   import { RouterLink } from 'vue-router';
   import { deleteRequest } from '@/assets/javascript/apiHelper'
 
-  const writers = useFetch(`${import.meta.env.VITE_API_WRITHERS_URL}`);
+  const publichers = useFetch(`${import.meta.env.VITE_API_PUBLICHERS_URL}`);
 </script>
 
 <template>
-  <Header></Header>
+  <Header />
   <div class="constainer pt-5">
     <div class="row pt-5">
       <div class="col-md-12 pt-5">
         <div class="row">
-          <div class="col-md-3" v-for="writer in writers" :key="writer.id">
+          <div class="col-md-3" v-for="publicher in publichers" :key="publicher.id">
             <p>
-              {{writer.name}}
+              {{publicher.name}}
             </p>
             <div class="row">
               <div class="col-md-6">
-                <RouterLink :to="{name: 'updateWriter', params: { id: writer.id }}">
+                <RouterLink :to="{name: 'updateWriter', params: { id: publicher.id }}">
                   <span class="btn btn-primary">
                     Edit
                   </span>
@@ -30,7 +30,7 @@
                   class="btn btn-danger" 
                   data-toggle="modal" 
                   data-target="#deleteModal"
-                  @click="openModel(writer.id, writer.name)"
+                  @click="openModel(publicher.id, publicher.name)"
                 >
                   <span>Delete</span>
                 </button>
@@ -46,14 +46,14 @@
     <div class="modal" :class="modalToggle" @click="closeModal">
       <div class="container mt-5 bg-white">
         <div class="modal-header">
-          <h5>Delete writer</h5>
+          <h5>Delete publicher</h5>
           <button type="button" class="close" @click="closeModal">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <p>
-            Are you sure you want to delete writer:
+            Are you sure you want to delete publicher:
           </p>
           <p>{{txt}}</p>
         </div>
@@ -94,7 +94,7 @@ export default {
       this.modalToggle = 'd-none'
     },
     async deleteWriter(){
-      await deleteRequest(this.id, 'Writers')
+      await deleteRequest(this.id, 'Publichers')
       this.$router.go()
     }
   },

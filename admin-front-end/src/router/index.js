@@ -87,6 +87,52 @@ const router = createRouter({
       component: () => import('../views/update/UpdateWriter.vue')
     },
     {
+      path: '/publichers',
+      name: 'Publichers',
+      beforeEnter(to, from, next){
+        if(!checkRoute())
+        {
+          next({ name: 'home' })
+          return false
+        }
+        else{
+          next()
+        }
+      },
+      component: () => import('../views/PublichersView.vue')
+    },
+    {
+      path: '/add-publichers',
+      name: 'addPublichers',
+      beforeEnter(to, from, next){
+        if(!checkRoute())
+        {
+          next({ name: 'home' })
+          return false
+        }
+        else{
+          next()
+        }
+      },
+      component: () => import('../views/create/AddPublicherView.vue')
+    },
+    {
+      path: '/update-publicher/:id',
+      name: 'updatePublichers',
+      beforeEnter: async (to, from, next) => {
+        const responce = await checkRouteItem(`${import.meta.env.VITE_API_PUBLICHERS_URL}/${to.params.id}`)
+        if(!responce)
+        {
+          next({ name: 'Publichers' })
+          return false
+        }
+        else{
+          next()
+        }
+      },
+      component: () => import('../views/update/UpdatePublicher.vue')
+    },
+    {
       path: '/overview',
       name: 'overview',
       beforeEnter(to, from, next){
