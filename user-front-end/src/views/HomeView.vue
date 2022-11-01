@@ -3,9 +3,7 @@
   import BannerLeft from '../components/BannerLeft.vue';
   import ComicMaster from '../components/ComicMaster.vue';
   import { useCache, useFetch } from '../assets/javascript/fetchNewComics';
-
-  const newComics = useCache("https://webshop.cheffjeff.online/wordpress/wp-json/wp/v2/products?per_page=5", "newComics");
-  const popComics = useCache("https://webshop.cheffjeff.online/wordpress/wp-json/wp/v2/products?per_page=10", "popComics");
+  const newComics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}`);
 </script>
 
 <template>
@@ -17,9 +15,10 @@
           <div class="inner" v-if="newComics">
             <ComicMaster 
               v-for="comic in newComics" 
-              :Title="comic.title.rendered"
+              :Title="comic.title"
               :key="comic.id"
-              Link="alien-3"
+              :Link="comic.id"
+              :Image="comic.image"
             />
           </div>
         </div>
@@ -33,14 +32,14 @@
   />
   <section class="popular">
     <div class="container-fluid">
-      <div class="row" v-if="popComics">
+      <!-- <div class="row" v-if="popComics">
         <div 
           class="col-md-3 smaller"
           v-for="comic in popComics"
           :key="comic.id">
             <ComicMaster :Title="comic.title.rendered"/>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>

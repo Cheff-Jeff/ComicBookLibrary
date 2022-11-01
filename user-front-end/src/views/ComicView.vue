@@ -5,7 +5,7 @@
   import BannerRight from '../components/BannerRight.vue';
 
   const route = useRoute();
-  const comic = useFetch(`https://webshop.cheffjeff.online/wordpress/wp-json/wp/v2/products?slug=${route.params.slug}`);
+  const comic = useFetch(`${import.meta.env.VITE_API_COMICS_URL}/${route.params.slug}`);
   
   defineExpose({comic});
 </script>
@@ -13,12 +13,17 @@
 <template>
   <div v-if="comic">
     <BannerRight  
-      :Title="comic[0].title.rendered"
+      :Title="comic.title"
       :Heading="true"
     />
     <ComicDetail 
-      :Title="comic[0].title.rendered"
-      :Descriptin="comic[0].content.rendered"
+      :Title="comic.title"
+      :Descriptin="comic.description"
+      :Publisher="comic.publisher.name"
+      :Image="comic.image"
+      :Writer="comic.writer.name"
+      :Artist="comic.artist.name"
+      :Cover-artist="comic.coverArtist.name"
     />
   </div>
 </template>

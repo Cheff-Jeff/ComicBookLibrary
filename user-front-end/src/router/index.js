@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import { routGaurd } from '../assets/javascript/fetchNewComics';
+import { routGaurd, CheckLogin } from '../assets/javascript/Gaurd';
 import { ref } from 'vue';
 
 const router = createRouter({
@@ -20,8 +20,8 @@ const router = createRouter({
       path: '/comics/:slug',
       name: 'comicDetail',
       beforeEnter: async (to, from, next) => {
-        const response = await routGaurd(`https://webshop.cheffjeff.online/wordpress/wp-json/wp/v2/products?slug=${to.params.slug}`)
-        if(response != 1)
+        const response = await routGaurd(`${import.meta.env.VITE_API_COMICS_URL}/${to.params.slug}`)
+        if(!response)
         {
           next({ name: 'NotFount' })
           return false
@@ -43,6 +43,20 @@ const router = createRouter({
       path: '/registration',
       name: 'register',
       component: () => import('../views/RegisterView.vue')
+    },
+    {
+      path: '/account',
+      name: 'account',
+      beforeEnter: (to,from,next) => {
+        if(!CheckLogin()){
+          next({ name: 'login' })
+          return false
+        }
+        else{
+          next();
+        }
+      },
+      component: () => import('../views/AccountView.vue')
     },
     {
       //error 404 page

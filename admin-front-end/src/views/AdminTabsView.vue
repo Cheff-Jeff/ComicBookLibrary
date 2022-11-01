@@ -6,14 +6,17 @@
 <template>
   <Header></Header>
   <main>
-    <section class="tabs">
-      <div class="btn-wrap">
-        <RouterLink>
+    <section class="tabs pt-5">
+      <div class="btn-wrap pt-5">
+        <RouterLink :to="{name: 'addWriters'}">
+          <span>Add writer</span>
+        </RouterLink>
+        <!-- <RouterLink>
           View all comics
         </RouterLink>
         <RouterLink>
           View all users
-        </RouterLink>
+        </RouterLink> -->
       </div>
     </section>
   </main>
