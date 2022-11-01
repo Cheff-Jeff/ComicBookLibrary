@@ -133,6 +133,52 @@ const router = createRouter({
       component: () => import('../views/update/UpdatePublicher.vue')
     },
     {
+      path: '/artists',
+      name: 'Artists',
+      beforeEnter(to, from, next){
+        if(!checkRoute())
+        {
+          next({ name: 'home' })
+          return false
+        }
+        else{
+          next()
+        }
+      },
+      component: () => import('../views/ArtistsView.vue')
+    },
+    {
+      path: '/add-artist',
+      name: 'addArtist',
+      beforeEnter(to, from, next){
+        if(!checkRoute())
+        {
+          next({ name: 'home' })
+          return false
+        }
+        else{
+          next()
+        }
+      },
+      component: () => import('../views/create/AddArtist.vue')
+    },
+    {
+      path: '/update-artist/:id',
+      name: 'updateArtist',
+      beforeEnter: async (to, from, next) => {
+        const responce = await checkRouteItem(`${import.meta.env.VITE_API_ARTISTS_URL}/${to.params.id}`)
+        if(!responce)
+        {
+          next({ name: 'Artists' })
+          return false
+        }
+        else{
+          next()
+        }
+      },
+      component: () => import('../views/update/UpdateArtist.vue')
+    },
+    {
       path: '/overview',
       name: 'overview',
       beforeEnter(to, from, next){
