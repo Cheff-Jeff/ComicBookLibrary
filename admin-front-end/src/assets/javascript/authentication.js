@@ -18,6 +18,17 @@ export const checkUser = (email, password) => {
   }
 }
 
+export const Logout = () => {
+  const user = JSON.parse(localStorage.getItem('userIsAdmin'))
+  if(user !== null){
+    localStorage.removeItem('userIsAdmin');
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
 export const checkRoute = () => {
   const user = JSON.parse(localStorage.getItem('userIsAdmin'));
   switch (user){
