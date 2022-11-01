@@ -19,7 +19,7 @@
     </div>
     <div class="text-wrap">
       <h1 v-if="Heading">{{ Title }}</h1>
-      <h2 v-else="Heading">{{ Title }}</h2>
+      <h2 v-else>{{ Title }}</h2>
     </div>
   </section>
 </template>

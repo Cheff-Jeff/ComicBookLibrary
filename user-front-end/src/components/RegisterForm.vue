@@ -1,3 +1,7 @@
+<script setup>
+  import { validateEmail, validateName } from '@/assets/javascript/validation'
+</script>
+
 <template>
   <form @submit.prevent="submitHandler">
     <div class="wrap name-wrapper">
@@ -30,7 +34,7 @@
           </div>
           <input 
             type="text" 
-            name="last name" 
+            name="lastname" 
             placeholder="Last name"
             v-model="lastName"
             @blur="validateLastName"
@@ -54,8 +58,8 @@
           name="email" 
           placeholder="Email"
           v-model="email"
-          @blur="validateEmail"
-          @keyup="validateEmail"
+          @blur="checkEmail"
+          @keyup="checkEmail"
         />
       </div>
       <div v-if="emailError" class="error">
@@ -172,42 +176,27 @@
       validatePassword(){
         this.passwordError = this.password.length == 0 ? 'Password can not be empty.' : 
         (this.password.length >= 10 ? '' : 'Password must be at least 10 characters long.');
-        /*
-          if statement shorthand
-            voorwaarden ? true : false
-
-          if elseif statement 
-            voorwaarden ? true : (voorwaarden ? true : false)
-        */
       },
       validatePasswordRepeat(){
         this.rePasswordError = this.rePassword.length == 0 ? 'Password can not be empty.' : 
         (this.rePassword.length < 10 ? 'Password must be at least 10 characters long.' : 
         (this.rePassword == this.password ? '' : 'Confirm password must match.'));
       },
-      validateEmail(){
+      checkEmail(){
         this.emailError = this.email.length == 0 ? 'Email can not be empty.' :
-        (this.checkEmail(this.email) ? '' : this.email + ' is not an email.');
+        (validateEmail(this.email) ? '' : this.email + ' is not an email.');
       },
       validateFirstName(){
         this.firstNameError = this.firstName.length == 0 ? 'First name can not be empty' :
-        (this.checkName(this.firstName) ? '' : this.firstName  + ' is not a name');
+        (validateName(this.firstName) ? '' : this.firstName  + ' is not a name');
       },
       validateLastName(){
         this.lastNameError = this.lastName.length == 0 ? 'First name can not be empty' :
-        (this.checkName(this.lastName) ? '' : this.lastName  + ' is not a name');
-      },
-      checkEmail(email){
-        const re = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-        return re.test(email);
-      },
-      checkName(name){
-        const re = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]*$/;
-        return re.test(name);
+        (validateName(this.lastName) ? '' : this.lastName  + ' is not a name');
       },
       submitHandler(){
         this.validatePassword();
-        this.validateEmail();
+        this.checkEmail();
         this.validateFirstName();
         this.validateLastName();
         this.validatePasswordRepeat();

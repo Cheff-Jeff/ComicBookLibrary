@@ -1,5 +1,6 @@
 <script setup>
-  import { Login } from '../assets/javascript/authentication';
+  import { Login } from '@/assets/javascript/authentication';
+  import { validateEmail } from '@/assets/javascript/validation'
 </script>
 
 <template>
@@ -16,8 +17,8 @@
           name="email" 
           placeholder="email"
           v-model="email"
-          @blur="validateEmail"
-          @keyup="validateEmail"
+          @blur="checkEmail"
+          @keyup="checkEmail"
         />
       </div>
       <div v-if="emailError" class="error">
@@ -86,25 +87,14 @@
       validatePassword(){
         this.passwordError = this.password.length == 0 ? 'Password can not be empty.' : 
         (this.password.length >= 10 ? '' : 'Password must be at least 10 characters long.');
-        /*
-          if statement shorthand
-            voorwaarden ? true : false
-
-          if elseif statement 
-            voorwaarden ? true : (voorwaarden ? true : false)
-        */
       },
-      validateEmail(){
+      checkEmail(){
         this.emailError = this.email.length == 0 ? 'Email can not be empty.' :
-        (this.checkEmail(this.email) ? '' : this.email + ' is not an email.');
-      },
-      checkEmail(email){
-        const re = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-        return re.test(email);
+        (validateEmail(this.email) ? '' : this.email + ' is not an email.');
       },
       submitHandler(){
         this.validatePassword();
-        this.validateEmail();
+        this.checkEmail();
 
         if(this.emailError == '' && this.passwordError == ''){
           const responce = Login(this.email, this.password);
