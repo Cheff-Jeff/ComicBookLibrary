@@ -9,7 +9,13 @@
     <section class="tabs pt-5">
       <div class="btn-wrap pt-5">
         <RouterLink :to="{name: 'addWriters'}">
-          <span>Add writer</span>
+          <span>Add writers</span>
+        </RouterLink><br>
+        <RouterLink :to="{name: 'addArtist'}">
+          <span>Add artists</span>
+        </RouterLink><br>
+        <RouterLink :to="{name: 'addPublichers'}">
+          <span>Add publichers</span>
         </RouterLink>
         <!-- <RouterLink>
           View all comics

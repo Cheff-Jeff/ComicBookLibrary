@@ -18,12 +18,15 @@
         <RouterLink :to="{name: 'comics'}">
           <span>Comics</span>
         </RouterLink>
-        <!-- <RouterLink :to="{name: 'home'}">
-          <span>Home</span>
+        <RouterLink :to="{name: 'Writers'}">
+          <span>Writers</span>
         </RouterLink>
-        <RouterLink :to="{name: 'comcis'}">
-          <span>Comics</span>
-        </RouterLink> -->
+        <RouterLink :to="{name: 'Artists'}">
+          <span>Artists</span>
+        </RouterLink>
+        <RouterLink :to="{name: 'Publichers'}">
+          <span>Publichers</span>
+        </RouterLink>
       </div>
     </nav>
 

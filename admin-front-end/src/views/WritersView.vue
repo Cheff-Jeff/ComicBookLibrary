@@ -52,10 +52,10 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>
+          <p class="text-dark">
             Are you sure you want to delete writer:
           </p>
-          <p>{{txt}}</p>
+          <p class="text-dark">{{txt}}</p>
         </div>
         <div class="modal-footer">
           <div class="row">

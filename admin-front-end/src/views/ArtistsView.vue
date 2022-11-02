@@ -19,7 +19,7 @@
             </p>
             <div class="row">
               <div class="col-md-6">
-                <RouterLink :to="{name: 'updateArtists', params: { id: artist.id }}">
+                <RouterLink :to="{name: 'updateArtist', params: { id: artist.id }}">
                   <span class="btn btn-primary">
                     Edit
                   </span>
@@ -52,10 +52,10 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>
+          <p class="text-dark">
             Are you sure you want to delete artist:
           </p>
-          <p>{{txt}}</p>
+          <p class="text-dark">{{txt}}</p>
         </div>
         <div class="modal-footer">
           <div class="row">
