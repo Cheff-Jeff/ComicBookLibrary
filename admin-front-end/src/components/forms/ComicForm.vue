@@ -1,6 +1,6 @@
 <script setup>
   import { useFetch } from '../../assets/javascript/fetchNewComics';
-  import { uploadImage } from '../../assets/javascript/uploadImage'; 
+  import { uploadImage } from '../../assets/javascript/comicApiHelper'
 
   const publichers = useFetch(`${import.meta.env.VITE_API_PUBLICHERS_URL}`);
   const writers = useFetch(`${import.meta.env.VITE_API_WRITHERS_URL}`);
@@ -25,8 +25,9 @@
           <textarea class="form-control" name="Description" rows="3"></textarea>
         </div>
       </div>
-      <div class="col-md-4">
-        <select name="" class="form-control">
+      <div class="col-md-3">
+        <select name="" class="form-control" v-model="Publicher">
+          <option value="" disabled selected>Select a publicher</option>
           <option 
             v-for="publicher in publichers"
             :key="publicher.id"
@@ -37,8 +38,9 @@
           </option>
         </select>
       </div>
-      <div class="col-md-4">
-        <select name="" class="form-control">
+      <div class="col-md-3">
+        <select name="" class="form-control" v-model="Writer">
+          <option value="" disabled selected>Select a Writer</option>
           <option 
             v-for="writer in writers"
             :key="writer.id"
@@ -49,8 +51,22 @@
           </option>
         </select>
       </div>
-      <div class="col-md-4">
-        <select name="" class="form-control">
+      <div class="col-md-3">
+        <select name="" class="form-control" v-model="Artist">
+          <option value="" disabled selected>Select a Artist</option>
+          <option 
+            v-for="artist in artists"
+            :key="artist.id"
+            :value="artist.id">
+            <span>
+              {{artist.name}}
+            </span>
+          </option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select name="" class="form-control" v-model="CoverArtist">
+          <option value="" disabled selected>Select a cover artist</option>
           <option 
             v-for="artist in artists"
             :key="artist.id"
@@ -66,6 +82,10 @@
       Add comic
     </button>
   </form>
+  <p>{{Publicher}}</p>
+  <p>{{Writer}}</p>
+  <p>{{Artist}}</p>
+  <!-- <p>{{publichers[0].id}}</p> -->
 </template>
 
 <script>
@@ -80,8 +100,10 @@ export default {
       WriterError: '',
       Publicher: '',
       PucherError: '',
-      Artis: '',
+      Artist: '',
       ArtisError: '',
+      CoverArtist: '',
+      CoverArtisError: '',
       image: ''
     }
   },

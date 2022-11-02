@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Extensions.FileProviders;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ComicsBackend.Models
@@ -32,7 +33,7 @@ namespace ComicsBackend.Models
         [NotMapped]
         public IFormFile ImageFile { get; set; }
 
-        public string UploadImageAsync() 
+        public async Task<string> UploadImageAsync() 
         {
             string path = "";
             try
@@ -42,11 +43,25 @@ namespace ComicsBackend.Models
                 {
                     Directory.CreateDirectory(path);
                 }
-                using (var fileStream = new FileStream(Path.Combine(path, this.ImageFile.FileName), FileMode.Create))
+
+                var fileName = Path.GetFileName(this.ImageFile.FileName);
+                var fileExtension = Path.GetExtension(fileName);
+                var uniqueFileName = Convert.ToString(Guid.NewGuid());
+                var newFileName = String.Concat(uniqueFileName, fileExtension);
+
+                //var filepath = new PhysicalFileProvider(path + newFileName);
+                //using (FileStream fs = File.Create(filepath))
+                //{
+                //    await this.ImageFile.CopyToAsync(fs);
+                //    fs.Flush();
+                //}
+
+                using (var fileStream = new FileStream(Path.Combine(path, newFileName), FileMode.Create))
                 {
-                    this.ImageFile.CopyToAsync(fileStream);
+                    await this.ImageFile.CopyToAsync(fileStream);
+                    this.Image = newFileName;
                 }
-                return path;
+                return newFileName;
             }
             catch (Exception ex)
             {
