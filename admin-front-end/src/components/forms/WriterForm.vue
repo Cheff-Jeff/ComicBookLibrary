@@ -1,6 +1,6 @@
 <script setup>
   import { postRequest, putRequest } from '@/assets/javascript/apiHelper'
-  import { validateName } from '@/assets/javascript/validation'
+  import { validateName, errNameEmp, errName } from '@/assets/javascript/validation'
 
   defineProps({
     Value: {
@@ -65,8 +65,8 @@ export default {
   },
   methods: {
     validate() {
-      this.nameError = this.name.length <= 0 ? 'Name can not be empty.' : 
-      (validateName(this.name) ? '' : `${this.name} is not a name.`) 
+      this.nameError = this.name.length <= 0 ? errNameEmp() : 
+      (validateName(this.name) ? '' : errName(this.name)) 
     },
     async submit() {
       this.validate();

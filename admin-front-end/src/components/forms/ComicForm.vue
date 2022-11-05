@@ -1,6 +1,12 @@
 <script setup>
-  import { useFetch } from '../../assets/javascript/fetchNewComics';
-  import { uploadImage } from '../../assets/javascript/comicApiHelper'
+  import { useFetch } from '@/assets/javascript/fetchNewComics';
+  import { uploadImage } from '@/assets/javascript/comicApiHelper'
+  import { 
+    validateTitle, validateDescription, validateId, validateFile, errTitleEmp, 
+    errTitle, errDescriptionEmp, errDescription, errWriterIdEmp,errWriterId, 
+    errArtistIdEmp, errArtistId, errCoverArtistIdEmp,errCoverArtistId, 
+    errPublicherIdEmp, errPublicherId, errImageEmp, errImage
+  } from '@/assets/javascript/validation'
 
   const publichers = useFetch(`${import.meta.env.VITE_API_PUBLICHERS_URL}`);
   const writers = useFetch(`${import.meta.env.VITE_API_WRITHERS_URL}`);
@@ -82,10 +88,6 @@
       Add comic
     </button>
   </form>
-  <p>{{Publicher}}</p>
-  <p>{{Writer}}</p>
-  <p>{{Artist}}</p>
-  <!-- <p>{{publichers[0].id}}</p> -->
 </template>
 
 <script>
@@ -104,15 +106,88 @@ export default {
       ArtisError: '',
       CoverArtist: '',
       CoverArtisError: '',
-      image: ''
+      image: '',
+      imageError: '',
+      newComic: {
+        Id: 0,
+        Title: this.Title,
+        Description: this.Description,
+        Image: "string",
+        PublisherId: this.publicher,
+        Publisher: {
+          Id: 0,
+          Name: "string"
+        },
+        CoverArtistId: this.CoverArtist,
+        CoverArtist: {
+          Id: 0,
+          Name: "string"
+        },
+        WriterId: this.Writer,
+        Writer: {
+          Id: 0,
+          Name: "string"
+        },
+        ArtistId: this.Artist,
+        Artist: {
+          Id: 0,
+          Name: "string"
+        },
+        ImageFile: ''
+      }
     }
   },
   methods: {
     checkImage(e) {
-      uploadImage(e.target.files[0]);
+      this.image = e.target.files[0]
+      const type = e.target.files[0].type.split('/')
+      this.imageError = this.image == '' ? errImageEmp() : (
+        validateFile(type[1]) ? '' : errImage()
+      )
+      console.log(this.imageError)
+    },
+    setFile(file){
+      this.newComic.ImageFile = file
+    },
+    checkTitle(){
+      this.TitleError = this.Title == '' ? errTitleEmp() : (
+        validateTitle(this.Title) ? '' : errTitle(this.Title)
+      )
+    },
+    checkDescription(){
+      this.DescriptionError = this.Description == '' ? errDescriptionEmp() : (
+        validateDescription(this.Description) ? '' : errDescription(this.Description)
+      )
+    },
+    checkWhriter(){
+      this.WriterError = this.Writer == '' ? errWriterIdEmp() : (
+        validateId(this.Writer) ? '' : errWriterId()
+      )
+    },
+    checkPublicher(){
+      this.PucherError = this.Publicher == ''? errPublicherIdEmp() : (
+        validateId(this.Publicher) ? '' : errPublicherId()
+      )
+    },
+    checkArtist(){
+      this.ArtisError = this.Artist == '' ? errArtistIdEmp() : (
+        validateId(this.Artist) ? '' : errArtistId()
+      )
+    },
+    checkCoverArtist(){
+      this.CoverArtisError = this.CoverArtist == '' ? errCoverArtistIdEmp() : (
+        validateId(this.CoverArtist) ? '' : errCoverArtistId()
+      )
     },
     submit() {
-
+      this.checkImage(); this.checkTitle(); this.checkDescription()
+      this.checkWhriter(); this.checkArtist(); this.checkCoverArtist()
+      this.checkPublicher()
+      if(this.TitleError == '', this.DescriptionError == '', this.WriterError == '',
+      this.ArtisError == '', this.CoverArtisError == '', this.PucherError == '', 
+      this.imageError == ''){
+        this.setFile(this.image)
+      }
     }
   }
 }
