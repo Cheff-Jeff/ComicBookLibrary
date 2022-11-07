@@ -1,6 +1,6 @@
 <script setup>
-  import Header from '../../components/Header.vue';
-  import ComicForm from '../../components/forms/ComicForm.vue'
+  import Header from '@/components/Header.vue';
+  import ComicForm from '@/components/forms/ComicForm.vue'
 </script>
 
 <template>
@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-12">
         <div class="inner">
-          <ComicForm></ComicForm>
+          <ComicForm apiType="post"></ComicForm>
         </div>
       </div>
     </div>

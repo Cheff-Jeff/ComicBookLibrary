@@ -1,6 +1,9 @@
 <script setup>
 import { RouterLink } from 'vue-router'
-import Header from '../components/Header.vue';
+import Header from '@/components/Header.vue';
+import { useFetch } from '@/assets/javascript/fetchNewComics';
+  const comics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}`);
+  const imgLink = import.meta.env.VITE_IMAGES
 </script>
 
 <template>
@@ -14,6 +17,33 @@ import Header from '../components/Header.vue';
               Add Comics
             </span>
           </RouterLink>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2" v-for="comic in comics" :key="comic.id">
+        <img :src="`${imgLink}/${comic.image}`" alt="comic cover">
+        <p>{{comic.title}}</p>
+        <div class="row">
+          <div class="col-md-6">
+            <!-- <RouterLink :to="{name: 'updateArtist', params: { id: artist.id }}">
+              <span class="btn btn-primary">
+                Edit
+              </span>
+            </RouterLink> -->
+            <span class="btn btn-primary">
+              Edit
+            </span>
+          </div>
+          <div class="col-md-6">
+            <button 
+              class="btn btn-danger" 
+              data-toggle="modal" 
+              data-target="#deleteModal"
+            >
+              <span>Delete</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
