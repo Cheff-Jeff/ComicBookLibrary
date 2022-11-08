@@ -8,21 +8,15 @@
   <main>
     <section class="tabs pt-5">
       <div class="btn-wrap pt-5">
-        <RouterLink :to="{name: 'addWriters'}">
+        <p><RouterLink :to="{name: 'addWriters'}" class="link">
           <span>Add writers</span>
-        </RouterLink><br>
-        <RouterLink :to="{name: 'addArtist'}">
+        </RouterLink></p><br>
+        <p><RouterLink :to="{name: 'addArtist'}" class="link">
           <span>Add artists</span>
-        </RouterLink><br>
-        <RouterLink :to="{name: 'addPublichers'}">
+        </RouterLink></p><br>
+        <p><RouterLink :to="{name: 'addPublichers'}" class="link">
           <span>Add publichers</span>
-        </RouterLink>
-        <!-- <RouterLink>
-          View all comics
-        </RouterLink>
-        <RouterLink>
-          View all users
-        </RouterLink> -->
+        </RouterLink></p>
       </div>
     </section>
   </main>

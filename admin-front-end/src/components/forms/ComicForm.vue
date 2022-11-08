@@ -11,6 +11,7 @@
   const publichers = useFetch(`${import.meta.env.VITE_API_PUBLICHERS_URL}`);
   const writers = useFetch(`${import.meta.env.VITE_API_WRITHERS_URL}`);
   const artists = useFetch(`${import.meta.env.VITE_API_ARTISTS_URL}`);
+  const imgLink = import.meta.env.VITE_IMAGES
 
   defineProps({
     apiType: { type: String, default: 'post', required: true },
@@ -19,9 +20,13 @@
     oldDescription: { type: String, default: '', required: false, },
     oldImg: { type: String, default: '', required: false, },
     oldPublicherId: { type: Number, default: 0, required: false, },
+    oldPublicher: { type: String, default: '', required: false, },
     oldWriterId: { type: Number, default: 0, required: false, },
+    oldWriter: { type: String, default: '', required: false, },
     oldArtistId: { type: Number, default: 0, required: false, },
+    oldArtist: { type: String, default: '', required: false, },
     oldCoverArtistId: { type: Number, default: 0, required: false, },
+    oldCoverArtist: { type: String, default: '', required: false, },
   })
 </script>
 
@@ -35,6 +40,9 @@
         </div>
       </div>
       <div class="col-md-6">
+        <div v-if="oldImg">
+          <img :src="`${imgLink}/${oldImg}`" alt="oldCover" style="max-width: 150px;">
+        </div>
         <div class="input-wrapper form-group">
           <input class="form-control" type="file" id="formFile" @change="checkImage">
           <span>{{imageError}}</span>
@@ -47,8 +55,12 @@
         </div>
       </div>
       <div class="col-md-3">
+        <span v-if="oldPublicherId && oldPublicher">
+          currend publicher: {{oldPublicher}}
+        </span>
         <select name="" class="form-control" v-model="Publicher" @change="checkPublicher">
-          <option :v-if="!oldPublicherId" value="" disabled selected>Select a publicher</option>
+          <option v-if="oldPublicherId" value="" disabled selected>Select a new publicher.</option>
+          <option v-else value="" disabled selected>Select a publicher.</option>
           <option 
             v-for="publicher in publichers"
             :key="publicher.id"
@@ -61,8 +73,12 @@
         <span>{{PucherError}}</span>
       </div>
       <div class="col-md-3">
+        <span v-if="oldWriterId && oldWriter">
+          currend writer: {{oldWriter}}
+        </span>
         <select name="" class="form-control" v-model="Writer" @change="checkWhriter">
-          <option :v-if="!oldWriterId" value="" disabled selected>Select a Writer</option>
+          <option v-if="oldWriterId" value="" disabled selected>Select a new writer.</option>
+          <option v-else value="" disabled selected>Select a writer.</option>
           <option 
             v-for="writer in writers"
             :key="writer.id"
@@ -75,8 +91,12 @@
         <span>{{WriterError}}</span>
       </div>
       <div class="col-md-3">
+        <span v-if="oldArtistId && oldArtist">
+          currend artist: {{oldArtist}}
+        </span>
         <select name="" class="form-control" v-model="Artist" @change="checkArtist">
-          <option v-if="!oldArtistId" value="" disabled selected>Select a Artist</option>
+          <option v-if="oldArtistId" value="" disabled selected>Select a new artist.</option>
+          <option v-else value="" disabled selected>Select an artist.</option>
           <option 
             v-for="artist in artists"
             :key="artist.id"
@@ -89,8 +109,12 @@
         <span>{{ArtisError}}</span>
       </div>
       <div class="col-md-3">
+        <span v-if="oldCoverArtistId && oldCoverArtist">
+          currend cover artist: {{oldCoverArtist}}
+        </span>
         <select name="" class="form-control" v-model="CoverArtist" @change="checkCoverArtist">
-          <option v-if="!oldCoverArtistId" value="" disabled selected>Select a cover artist</option>
+          <option v-if="oldCoverArtistId" value="" disabled selected>Select a new cover artist.</option>
+          <option v-else value="" disabled selected>Select a cover artist.</option>
           <option 
             v-for="artist in artists"
             :key="artist.id"
@@ -117,15 +141,15 @@ export default {
       TitleError: '',
       Description: this.oldDescription,
       DescriptionError: '',
-      Writer: this.oldWriterId,
+      Writer: '',
       WriterError: '',
-      Publicher: this.oldPublicherId,
+      Publicher: '',
       PucherError: '',
-      Artist: this.oldArtistId,
+      Artist: '',
       ArtisError: '',
-      CoverArtist: this.oldCoverArtistId,
+      CoverArtist: '',
       CoverArtisError: '',
-      image: this.oldImg,
+      image: '',
       imageError: '',
       imgType: '',
       newComic: {
@@ -178,7 +202,14 @@ export default {
       this.newComic.CoverArtistId = this.CoverArtist
       this.newComic.WriterId = this.Writer
       this.newComic.ArtistId = this.Artist
-      this.newComic.ImageFile = this.image
+      if(this.image){
+        this.newComic.ImageFile = this.image
+        this.newComic.Image = "string"
+      }
+      else if(this.oldImg){
+        this.newComic.Image = this.oldImg
+        this.newComic.ImageFile = ''
+      }
     },
     checkTitle(){
       this.TitleError = this.Title == '' ? errTitleEmp() : (
@@ -212,7 +243,29 @@ export default {
     },
     async submit() {
       if(this.apiType == 'put'){
-        
+        this.checkTitle(); this.checkDescription()
+        if(this.image){ this.valitImage() }
+        if(!this.Publicher){ this.Publicher = this.oldPublicherId }
+        if(!this.Writer){ this.Writer = this.oldWriterId }
+        if(!this.Artist){ this.Artist = this.oldArtistId }
+        if(!this.CoverArtist){ this.CoverArtist = this.oldCoverArtistId }
+
+        if(this.TitleError == '', this.DescriptionError == '', this.WriterError == '',
+        this.ArtisError == '', this.CoverArtisError == '', this.PucherError == '', this.imageError == '')
+        {
+          this.setNewComic()
+          try {
+            console.log(this.newComic)
+            // // const result = await putComic(this.newComic)
+            // if(result.status == 201)
+            // {
+            //   console.log('done')
+            //   this.$emit('submit', result.status);
+            // }
+          } catch (error) {
+            console.log(error)
+          }
+        }
       }
       else{
         this.valitImage(); this.checkTitle(); this.checkDescription()

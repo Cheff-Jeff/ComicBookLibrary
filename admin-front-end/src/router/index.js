@@ -41,6 +41,22 @@ const router = createRouter({
       component: () => import('../views/create/AddComicsView.vue')
     },
     {
+      path: '/update-comic/:id',
+      name: 'updateComic',
+      beforeEnter: async (to, from, next) => {
+        const responce = await checkRouteItem(`${import.meta.env.VITE_API_COMICS_URL}/${to.params.id}`)
+        if(!responce)
+        {
+          next({ name: 'comics' })
+          return false
+        }
+        else{
+          next()
+        }
+      },
+      component: () => import('../views/update/UpdateComic.vue')
+    },
+    {
       path: '/writers',
       name: 'Writers',
       beforeEnter(to, from, next){

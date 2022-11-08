@@ -26,14 +26,11 @@ import { useFetch } from '@/assets/javascript/fetchNewComics';
         <p>{{comic.title}}</p>
         <div class="row">
           <div class="col-md-6">
-            <!-- <RouterLink :to="{name: 'updateArtist', params: { id: artist.id }}">
+            <RouterLink :to="{name: 'updateComic', params: { id: comic.id }}">
               <span class="btn btn-primary">
                 Edit
               </span>
-            </RouterLink> -->
-            <span class="btn btn-primary">
-              Edit
-            </span>
+            </RouterLink>
           </div>
           <div class="col-md-6">
             <button 
