@@ -21,6 +21,7 @@ namespace ComicsBackend.Controllers
                 .Skip(parameters.Size * (parameters.Page - 1))
                 .Take(parameters.Size);
 
+
             return Ok(await comics.ToArrayAsync());
         }
 
@@ -45,9 +46,7 @@ namespace ComicsBackend.Controllers
         {
             _context.Entry(comic).State = EntityState.Modified;
 
-            //string? path = comic.UploadImageAsync().ToString();
-            comic.UploadImageAsync().ToString();
-            //comic.Image = path;
+            await comic.UploadImageAsync();
 
             await _context.Comics.AddAsync(comic);
             await _context.SaveChangesAsync();
@@ -55,18 +54,10 @@ namespace ComicsBackend.Controllers
             return CreatedAtAction(nameof(GetById), new { id = comic.Id }, comic);
         }
 
-        //[HttpPost("{img}")]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public async Task<IActionResult> UploadFile(IFormFile img)
-        //{
-        //    return NoContent();
-        //}
-
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Update(int id, Comic comic)
+        public async Task<IActionResult> Update(int id, [FromForm] Comic comic)
         {
             if (id != comic.Id)
             {
@@ -75,6 +66,12 @@ namespace ComicsBackend.Controllers
             else 
             {
                 _context.Entry(comic).State = EntityState.Modified;
+
+                if (comic.ImageFile != null)
+                {
+                    await comic.UploadImageAsync();
+                }
+
                 await _context.SaveChangesAsync();
 
                 return NoContent();

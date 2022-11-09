@@ -11,6 +11,7 @@ const requestPost = async (data) => {
     result = response;
   }).catch((error) => {
     result = error
+    console.log(error);
   })
 
   return result
@@ -57,7 +58,7 @@ export const putComic = async (comic, id)=>{
   try {
     return await requestPut(comic,id)
   } catch (error) {
-    return error
+    console.log(error);
   }
 }
 

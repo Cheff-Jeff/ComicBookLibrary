@@ -256,12 +256,12 @@ export default {
           this.setNewComic()
           try {
             console.log(this.newComic)
-            // // const result = await putComic(this.newComic)
-            // if(result.status == 201)
-            // {
-            //   console.log('done')
-            //   this.$emit('submit', result.status);
-            // }
+            const result = await putComic(this.newComic, this.newComic.Id)
+            if(result.status == 201)
+            {
+              console.log('done')
+              this.$emit('submit', result.status);
+            }
           } catch (error) {
             console.log(error)
           }

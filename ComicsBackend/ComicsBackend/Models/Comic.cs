@@ -31,7 +31,7 @@ namespace ComicsBackend.Models
         public Artist Artist { get; set; }
 
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; } = null;
 
         public async Task<string> UploadImageAsync() 
         {
@@ -48,13 +48,6 @@ namespace ComicsBackend.Models
                 var fileExtension = Path.GetExtension(fileName);
                 var uniqueFileName = Convert.ToString(Guid.NewGuid());
                 var newFileName = String.Concat(uniqueFileName, fileExtension);
-
-                //var filepath = new PhysicalFileProvider(path + newFileName);
-                //using (FileStream fs = File.Create(filepath))
-                //{
-                //    await this.ImageFile.CopyToAsync(fs);
-                //    fs.Flush();
-                //}
 
                 using (var fileStream = new FileStream(Path.Combine(path, newFileName), FileMode.Create))
                 {
