@@ -15,6 +15,7 @@
       <div class="col-12">
         <div class="inner">
           <ComicForm 
+            @submit='redirect'
             apiType="put"
             :oldId="comic.id"
             :oldTitle="comic.title"
@@ -37,7 +38,11 @@
 
 <script>
 export default {
-
+  methods: {
+    redirect() {
+      this.$router.push({name: 'comics'});
+    }
+  }
 }
 </script>
 

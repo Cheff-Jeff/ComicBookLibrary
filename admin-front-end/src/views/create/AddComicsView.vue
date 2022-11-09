@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-12">
         <div class="inner">
-          <ComicForm apiType="post"></ComicForm>
+          <ComicForm @submit='redirect' apiType="post"></ComicForm>
         </div>
       </div>
     </div>
@@ -18,7 +18,11 @@
 
 <script>
 export default {
-
+  methods: {
+    redirect() {
+      this.$router.push({name: 'comics'});
+    }
+  }
 }
 </script>
 
