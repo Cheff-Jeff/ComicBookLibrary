@@ -3,7 +3,8 @@
   import BannerLeft from '../components/BannerLeft.vue';
   import ComicMaster from '../components/ComicMaster.vue';
   import { useCache, useFetch } from '../assets/javascript/fetchNewComics';
-  const newComics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}`);
+  const newComics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}?Size=5`);
+  const popComics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}?Size=10`);
 </script>
 
 <template>
@@ -32,14 +33,14 @@
   />
   <section class="popular">
     <div class="container-fluid">
-      <!-- <div class="row" v-if="popComics">
+      <div class="row" v-if="popComics">
         <div 
           class="col-md-3 smaller"
           v-for="comic in popComics"
           :key="comic.id">
-            <ComicMaster :Title="comic.title.rendered"/>
+            <ComicMaster :Title="comic.title.rendered" :Link="comic.id" :Image="comic.image"/>
         </div>
-      </div> -->
+      </div>
     </div>
   </section>
 </template>

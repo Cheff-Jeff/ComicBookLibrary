@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-12">
         <div class="inner">
-          <ComicForm @submit='redirect' apiType="post"></ComicForm>
+          <ComicForm @done='redirect' apiType="post"></ComicForm>
         </div>
       </div>
     </div>

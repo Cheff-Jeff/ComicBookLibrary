@@ -1,4 +1,6 @@
 <script setup>
+  const imgLink = import.meta.env.VITE_IMAGES
+
   defineProps({
     Title: {
       type: String,
@@ -46,13 +48,13 @@
 
 <template>
   <section class="content">
-    <div class="background" :style="{ 'background-image': `url(${imgPath})` }"></div>
+    <div class="background" :style="{ 'background-image': `url(${imgLink}/${this.Image})` }"></div>
     <div class="comic-wrap">
       <div class="container">
         <div class="row">
           <div class="col-md-5">
             <div class="img-wrap">
-              <img :src="imgPath" alt="comic cover">
+              <img :src="`${imgLink}/${this.Image}`" alt="comic cover">
             </div>
           </div>
           <div class="col-md-7">

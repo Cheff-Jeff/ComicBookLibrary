@@ -15,7 +15,7 @@
       <div class="col-12">
         <div class="inner">
           <WriterForm 
-            @submit='redirect' 
+            @done='redirect' 
             :Value="writer.name" 
             :Id="writer.id" 
             apiType="put"

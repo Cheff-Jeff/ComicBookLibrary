@@ -74,10 +74,10 @@ export default {
         switch (this.method) {
           case 'post':
             try {
-              const result = await postRequest(this.name, 'Publichers');
+              const result = await postRequest(this.name, 'Publichers')
               if(result.status == 201)
               {
-                this.$emit('submit', result.status);
+                this.$emit('done', result.status);
               }
             } catch (error) {
               console.log(error)
@@ -92,7 +92,7 @@ export default {
               const result = await putRequest(data, 'Publichers')
               if(result.status == 204)
               {
-                this.$emit('submit', result.status);
+                this.$emit('done', result.status);
               }
             } catch (error) {
               console.log(error)

@@ -77,7 +77,7 @@ export default {
               const result = await postRequest(this.name, 'Writers');
               if(result.status == 201)
               {
-                this.$emit('submit', result.status);
+                this.$emit('done', result.status);
               }
             } catch (error) {
               console.log(error)
@@ -92,7 +92,7 @@ export default {
               const result = await putRequest(data, 'Writers')
               if(result.status == 204)
               {
-                this.$emit('submit', result.status);
+                this.$emit('done', result.status);
               }
             } catch (error) {
               console.log(error)

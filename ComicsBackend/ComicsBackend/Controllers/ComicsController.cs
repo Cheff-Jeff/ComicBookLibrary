@@ -18,6 +18,7 @@ namespace ComicsBackend.Controllers
         {
             IQueryable<Comic> comics = _context.Comics;
             comics = comics
+                .OrderByDescending(c => c.Id)
                 .Skip(parameters.Size * (parameters.Page - 1))
                 .Take(parameters.Size);
 

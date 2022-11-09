@@ -7,6 +7,8 @@
     errArtistIdEmp, errArtistId, errCoverArtistIdEmp,errCoverArtistId, 
     errPublicherIdEmp, errPublicherId, errImageEmp, errImage
   } from '@/assets/javascript/validation'
+  // import PublicherForm from '@/components/forms/PublicherForm.vue';
+  // import { ref } from 'vue';
 
   const publichers = useFetch(`${import.meta.env.VITE_API_PUBLICHERS_URL}`);
   const writers = useFetch(`${import.meta.env.VITE_API_WRITHERS_URL}`);
@@ -178,10 +180,20 @@ export default {
           Name: "string"
         },
         ImageFile: ''
-      }
+      },
+      // publicherForm: '',
+      // writerForm: '',
+      // ArtistForm: '',
     }
   },
   methods: {
+    // updatePublichers(){ 
+    //   console.log(useFetch(`${import.meta.env.VITE_API_PUBLICHERS_URL}`))
+    //   this.openPublicher()
+    // },
+    // openPublicher(){
+    //   this.publicherForm = this.publicherForm == '' ? 'open' : ''
+    // },
     checkImage(e) {
       console.log(e)
       console.log(e.target.files)
@@ -260,7 +272,7 @@ export default {
             if(result.status == 201)
             {
               console.log('done')
-              this.$emit('submit', result.status);
+              this.$emit('done', result.status);
             }
           } catch (error) {
             console.log(error)
@@ -282,7 +294,7 @@ export default {
             if(result.status == 201)
             {
               console.log('done')
-              this.$emit('submit', result.status);
+              this.$emit('done', result.status);
             }
           } catch (error) {
             console.log(error)

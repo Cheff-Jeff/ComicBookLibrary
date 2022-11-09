@@ -15,7 +15,7 @@
       <div class="col-12">
         <div class="inner">
           <ComicForm 
-            @submit='redirect'
+            @done='redirect'
             apiType="put"
             :oldId="comic.id"
             :oldTitle="comic.title"

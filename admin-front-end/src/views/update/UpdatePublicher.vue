@@ -15,7 +15,7 @@
       <div class="col-12">
         <div class="inner">
           <PublicherForm 
-            @submit='redirect' 
+            @done='redirect' 
             :Value="publicher.name" 
             :Id="publicher.id" 
             apiType="put"
