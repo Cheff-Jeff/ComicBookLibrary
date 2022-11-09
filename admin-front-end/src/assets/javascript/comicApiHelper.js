@@ -34,7 +34,8 @@ const requestPut = async (data, destination) => {
 
 const requestDelete = async (destination) => {
   let result = null
-  await axios.delete(`${import.meta.env.VITE_API_COMICS_URL}${destination}`, {
+  console.log(`${import.meta.env.VITE_API_COMICS_URL}/${destination}`);
+  await axios.delete(`${import.meta.env.VITE_API_COMICS_URL}/${destination}`, {
       headers: {'Content-Type': 'application/json'},
     }
   ).then((response) => {
@@ -64,6 +65,7 @@ export const putComic = async (comic, id)=>{
 
 export const deleteComic = async (id)=>{
   try {
+    console.log(id);
     return await requestDelete(id)
   } catch (error) {
     return error
