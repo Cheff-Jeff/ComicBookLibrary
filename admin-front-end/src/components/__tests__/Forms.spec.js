@@ -127,7 +127,7 @@ describe('title validation', ()=>{
     
     wrapper.find('input[type="text"]').setValue('')
     wrapper.vm.validate()
-    expect(wrapper.vm.nameError).toBe('Name can not be empty.')
+    expect(wrapper.vm.nameError).toBe('Publicher can not be empty.')
   })
 })
 
