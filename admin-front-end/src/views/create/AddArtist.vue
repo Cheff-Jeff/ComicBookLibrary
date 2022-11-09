@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-12">
         <div class="inner">
-          <ArtistsForm @submit='redirect' apiType='post'/>
+          <ArtistsForm @done='redirect' apiType='post'/>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
 export default {
   methods: {
     redirect() {
-      this.$router.push("Artists");
+      this.$router.push({name: 'Artists'});
     }
   }
 }

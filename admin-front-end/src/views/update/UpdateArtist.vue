@@ -15,7 +15,7 @@
       <div class="col-12">
         <div class="inner">
           <ArtistsForm 
-            @submit='redirect' 
+            @done='redirect' 
             :Value="artist.name" 
             :Id="artist.id" 
             apiType="put"

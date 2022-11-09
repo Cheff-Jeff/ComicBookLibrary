@@ -1,6 +1,6 @@
 <script setup>
   import { postRequest, putRequest } from '@/assets/javascript/apiHelper'
-  import { validateName } from '@/assets/javascript/validation'
+  import { validateName, errNameEmp, errName } from '@/assets/javascript/validation'
 
   defineProps({
     Value: {
@@ -65,8 +65,8 @@ export default {
   },
   methods: {
     validate() {
-      this.nameError = this.name.length <= 0 ? 'Name can not be empty.' : 
-      (validateName(this.name) ? '' : `${this.name} is not a name.`) 
+      this.nameError = this.name.length <= 0 ? errNameEmp() : 
+      (validateName(this.name) ? '' : errName(this.name)) 
     },
     async submit() {
       this.validate();
@@ -77,7 +77,7 @@ export default {
               const result = await postRequest(this.name, 'Writers');
               if(result.status == 201)
               {
-                this.$emit('submit', result.status);
+                this.$emit('done', result.status);
               }
             } catch (error) {
               console.log(error)
@@ -92,7 +92,7 @@ export default {
               const result = await putRequest(data, 'Writers')
               if(result.status == 204)
               {
-                this.$emit('submit', result.status);
+                this.$emit('done', result.status);
               }
             } catch (error) {
               console.log(error)

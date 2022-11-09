@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-12">
         <div class="inner">
-          <PublicherForm @submit='redirect' apiType='post'/>
+          <PublicherForm @done='redirect' apiType='post'/>
         </div>
       </div>
     </div>

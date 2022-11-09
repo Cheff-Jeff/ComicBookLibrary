@@ -1,6 +1,7 @@
 <script setup>
   import { RouterLink } from 'vue-router';
-
+  const imgLink = import.meta.env.VITE_IMAGES
+  
   defineProps({
     Title: {
       type: String,
@@ -20,7 +21,7 @@
 <template>
   <div class="comic">
     <a @click="teleport">
-      <img :src="imgPath" alt="Comic book cover">
+      <img :src="`${imgLink}/${this.Image}`" alt="Comic book cover">
       <p>{{ Title }}</p>
     </a>
   </div>

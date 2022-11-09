@@ -1,7 +1,6 @@
 <script setup>
-  import Header from '../../components/Header.vue';
-  import ComicsForm from '../../components/forms/ComicForm.vue'
-import ComicForm from '../../components/forms/ComicForm.vue';
+  import Header from '@/components/Header.vue';
+  import ComicForm from '@/components/forms/ComicForm.vue'
 </script>
 
 <template>
@@ -10,7 +9,7 @@ import ComicForm from '../../components/forms/ComicForm.vue';
     <div class="row">
       <div class="col-12">
         <div class="inner">
-          <ComicForm></ComicForm>
+          <ComicForm @done='redirect' apiType="post"></ComicForm>
         </div>
       </div>
     </div>
@@ -19,7 +18,11 @@ import ComicForm from '../../components/forms/ComicForm.vue';
 
 <script>
 export default {
-
+  methods: {
+    redirect() {
+      this.$router.push({name: 'comics'});
+    }
+  }
 }
 </script>
 
