@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2" v-for="comic in comics" :key="comic.id">
+      <div class="col-md-3" v-for="comic in comics" :key="comic.id">
         <img :src="`${imgLink}/${comic.image}`" alt="comic cover">
         <p>{{comic.title}}</p>
         <div class="row">
