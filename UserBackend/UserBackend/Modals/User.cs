@@ -30,7 +30,15 @@ namespace UserBackend.Modals
         public void encrypt() 
         {
             EncryptionHandler handler = new EncryptionHandler();
-            this.Password = handler.hash(this.Password, handler.AddSalt());
+            byte[] salt = handler.AddSalt();
+            this.Salt = Convert.ToBase64String(salt);
+            this.Password = handler.hash(this.Password, salt);
+        }
+
+        public void keepOldInfo(string salt, string pass)
+        { 
+            this.Salt = salt;
+            this.Password = pass;
         }
     }
 }

@@ -25,9 +25,9 @@ namespace UserBackend.Modals
         public bool VerifyPassword(string password, string sSalt, string userPass)
         {
             byte[] salt = Convert.FromBase64String(sSalt);
-            Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, salt, 10000);
+            Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(userPass, salt, 10000);
 
-            return Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(256)) == userPass;
+            return Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(256)) == password;
         }
     }
 }
