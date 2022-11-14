@@ -189,10 +189,6 @@ describe('password validation', ()=>{
     wrapper.vm.validatePassword()
     expect(wrapper.vm.passwordError).toBe('')
 
-    wrapper.find('input[name="password"]').setValue(badPassowrd)
-    wrapper.vm.validatePassword()
-    expect(wrapper.vm.passwordError).toBe('Password must be at least 10 characters long.')
-    
     wrapper.find('input[name="password"]').setValue('')
     wrapper.vm.validatePassword()
     expect(wrapper.vm.passwordError).toBe('Password can not be empty.')
