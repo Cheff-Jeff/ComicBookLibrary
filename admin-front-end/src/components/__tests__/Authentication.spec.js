@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest'
 import { Logout } from '../../assets/javascript/authentication'
 describe('logout', () => {
   test('Deletes the localStorage item.', () => {
-    localStorage.setItem('userIsAdmin', true)
+    sessionStorage.setItem('userIsAdmin', true)
     expect(Logout()).toBe(true)
   })
 })
@@ -15,10 +15,10 @@ describe('logout', ()=> {
 import { checkRoute } from '../../assets/javascript/authentication'
 describe('routeGard', ()=>{
   test('route available to user', ()=>{
-    localStorage.setItem('userIsAdmin', true)
+    sessionStorage.setItem('userIsAdmin', true)
     expect(checkRoute()).toBe(true)
     
-    localStorage.removeItem('userIsAdmin')
+    sessionStorage.removeItem('userIsAdmin')
   })
 })
 

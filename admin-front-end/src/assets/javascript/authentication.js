@@ -1,15 +1,25 @@
 import axios from "axios";
 
-export const checkUser = (email, password) => {
-  /*
-  *api call to check user input
-    return true/false
-  * set user localstorege
-  *return true/false
-  */
-  if(email == "admin@admin.com" && password == "adminadmin")
+export const checkUser = async (emailInput, passwordInput) => {
+  const data = {
+    email: emailInput,
+    password: passwordInput
+  }
+  let result = null
+
+  try {
+    await axios.post(`${import.meta.env.VITE_API_USERS}/AdminLogin`, data, {
+      headers: { 'Content-type': 'application/json'}
+    }).then((response) => {
+      result = response;
+    }) 
+  }catch (error) {
+    console.log(error);
+  }
+  
+  if(result !== null)
   {
-    localStorage.setItem('userIsAdmin', true);
+    sessionStorage.setItem('userIsAdmin', true);
     return true;
   }
   else 
@@ -19,9 +29,9 @@ export const checkUser = (email, password) => {
 }
 
 export const Logout = () => {
-  const user = JSON.parse(localStorage.getItem('userIsAdmin'))
+  const user = JSON.parse(sessionStorage.getItem('userIsAdmin'))
   if(user !== null){
-    localStorage.removeItem('userIsAdmin');
+    sessionStorage.removeItem('userIsAdmin');
     return true;
   }
   else{
@@ -30,7 +40,7 @@ export const Logout = () => {
 }
 
 export const checkRoute = () => {
-  const user = JSON.parse(localStorage.getItem('userIsAdmin'));
+  const user = JSON.parse(sessionStorage.getItem('userIsAdmin'));
   switch (user){
     case true:
       return true
@@ -42,7 +52,7 @@ export const checkRoute = () => {
 
 export const checkRouteItem = async (url) => {
   let result = null;
-  const user = JSON.parse(localStorage.getItem('userIsAdmin'));
+  const user = JSON.parse(sessionStorage.getItem('userIsAdmin'));
   switch (user){
     case true:
       try {

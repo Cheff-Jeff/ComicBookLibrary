@@ -1,6 +1,11 @@
 <script setup>
   import { checkUser } from "@/assets/javascript/authentication"
-  import { validateEmail } from '@/assets/javascript/validation'
+  import { 
+    validateEmail, 
+    errEmailEmp, 
+    errEmail, 
+    errPassEmp 
+  } from '@/assets/javascript/validation'
 </script>
 
 <template>
@@ -63,6 +68,9 @@
         <span>{{passwordError}}</span>
       </div>
     </div>
+    <div class="loginError error" v-if="authorizedError">
+      <span>{{authorizedError}}</span>
+    </div>
     <button type="submit" class="btn btn-custom">
       Login
     </button>
@@ -86,22 +94,20 @@
         this.passwordType = this.passwordType == 'password' ? 'text' : 'password'
       },
       validatePassword(){
-        this.passwordError = this.password.length == 0 ? 'Password can not be empty.' : 
-        (this.password.length >= 10 ? '' : 'Password must be at least 10 characters long.');
+        this.passwordError = this.password.length == 0 ? errPassEmp() : ''
       },
       checkEmail(){
-        this.emailError = this.email.length == 0 ? 'Email can not be empty.' :
-        (validateEmail(this.email) ? '' : this.email + ' is not an email.');
+        this.emailError = this.email.length == 0 ? errEmailEmp() :
+        (validateEmail(this.email) ? '' : errEmail(this.email));
       },
-      submitHandler(){
+      async submitHandler(){
         this.validatePassword();
         this.checkEmail();
 
         if(this.emailError == '' && this.passwordError == ''){
-          const authorized = checkUser(this.email, this.password);
+          const authorized = await checkUser(this.email, this.password);
           authorized ? this.$router.push("overview") : 
-          console.log("not authorized")
-          //this.authorizedError = "your email or password was incorrect. Please try again."
+          this.authorizedError = "Your email or password was incorrect. Please try again."
         }
       }
     }
