@@ -19,7 +19,7 @@ export const checkUser = async (emailInput, passwordInput) => {
   
   if(result !== null)
   {
-    localStorage.setItem('userIsAdmin', true);
+    sessionStorage.setItem('userIsAdmin', true);
     return true;
   }
   else 
@@ -29,9 +29,9 @@ export const checkUser = async (emailInput, passwordInput) => {
 }
 
 export const Logout = () => {
-  const user = JSON.parse(localStorage.getItem('userIsAdmin'))
+  const user = JSON.parse(sessionStorage.getItem('userIsAdmin'))
   if(user !== null){
-    localStorage.removeItem('userIsAdmin');
+    sessionStorage.removeItem('userIsAdmin');
     return true;
   }
   else{
@@ -40,7 +40,7 @@ export const Logout = () => {
 }
 
 export const checkRoute = () => {
-  const user = JSON.parse(localStorage.getItem('userIsAdmin'));
+  const user = JSON.parse(sessionStorage.getItem('userIsAdmin'));
   switch (user){
     case true:
       return true
@@ -52,7 +52,7 @@ export const checkRoute = () => {
 
 export const checkRouteItem = async (url) => {
   let result = null;
-  const user = JSON.parse(localStorage.getItem('userIsAdmin'));
+  const user = JSON.parse(sessionStorage.getItem('userIsAdmin'));
   switch (user){
     case true:
       try {

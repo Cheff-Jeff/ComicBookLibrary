@@ -38,6 +38,8 @@ export const errTitleEmp = () => { return 'Title can not be empty.' }
 export const errTitle = (e) => { return `${e} is not a proper title.` }
 export const errEmailEmp = () => { return 'Email can not be empty.' }
 export const errEmail = (e) => { return `${e} is not an email.` }
+export const errPassEmp = () => { return 'Password can not be empty.'}
+export const errPass = () => { return 'Password must be at least 10 characters long.'}
 export const errDescriptionEmp = () => { return 'Description can not be empty.' }
 export const errDescription = (e) => { return `${e} is not a description.` }
 export const errPublicherEmp = () => { return 'Publicher can not be empty.' }
