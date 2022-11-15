@@ -220,7 +220,7 @@ describe('validate name', ()=>{
 
     wrapper.find('input[name="firstName"]').setValue('')
     wrapper.vm.validateFirstName()
-    expect(wrapper.vm.firstNameError).toBe(`First name can not be empty`)
+    expect(wrapper.vm.firstNameError).toBe(`Name can not be empty.`)
   })
 })
 
@@ -240,6 +240,6 @@ describe('validate name', ()=>{
 
     wrapper.find('input[name="lastname"]').setValue('')
     wrapper.vm.validateLastName()
-    expect(wrapper.vm.lastNameError).toBe(`First name can not be empty`)
+    expect(wrapper.vm.lastNameError).toBe(`Name can not be empty.`)
   })
 })
