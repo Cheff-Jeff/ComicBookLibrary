@@ -4,9 +4,6 @@ export const routGaurd = async (url) => {
   let result = null;
   console.log(url)
   try{
-    // await axios.get(url).then(response => (
-    //   result = response.data
-    // ));
     await axios.get(url).then(result = true);
   }
   catch (error){
@@ -18,7 +15,7 @@ export const routGaurd = async (url) => {
 }
 
 export const CheckLogin = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(sessionStorage.getItem('user'));
   if(user !== null)
   {
     return true

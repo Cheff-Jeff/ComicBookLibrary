@@ -1,5 +1,9 @@
 <script setup>
-  import { validateEmail, validateName } from '@/assets/javascript/validation'
+  import { 
+    validateName, validateEmail, errNameEmp, errName, 
+    errEmailEmp, errEmail, errPassEmp, errPass, errConfirmPass
+  } from '@/assets/javascript/validation'
+  import {SignUp, Login} from '@/assets/javascript/authentication'
 </script>
 
 <template>
@@ -142,6 +146,11 @@
         <span>{{rePasswordError}}</span>
       </div>
     </div>
+    <div class="error gerister-problem" v-if="respondeError">
+      <span>
+        {{respondeError}}
+      </span>
+    </div>
     <button type="submit" class="btn btn-custom">
       Sign up
     </button>
@@ -164,6 +173,7 @@
         rePassword: '',
         rePasswordError: '',
         rePasswordType: 'password',
+        respondeError: ''
       }
     },
     methods: {
@@ -174,27 +184,27 @@
         this.rePasswordType = this.rePasswordType == 'password' ? 'text' : 'password'
       },
       validatePassword(){
-        this.passwordError = this.password.length == 0 ? 'Password can not be empty.' : 
-        (this.password.length >= 10 ? '' : 'Password must be at least 10 characters long.');
+        this.passwordError = this.password.length == 0 ? errPassEmp() : 
+        (this.password.length >= 10 ? '' : errPass());
       },
       validatePasswordRepeat(){
-        this.rePasswordError = this.rePassword.length == 0 ? 'Password can not be empty.' : 
-        (this.rePassword.length < 10 ? 'Password must be at least 10 characters long.' : 
-        (this.rePassword == this.password ? '' : 'Confirm password must match.'));
+        this.rePasswordError = this.rePassword.length == 0 ? errPassEmp() : 
+        (this.rePassword.length < 10 ? errPass() : 
+        (this.rePassword == this.password ? '' : errConfirmPass()));
       },
       checkEmail(){
-        this.emailError = this.email.length == 0 ? 'Email can not be empty.' :
-        (validateEmail(this.email) ? '' : this.email + ' is not an email.');
+        this.emailError = this.email.length == 0 ? errEmailEmp() :
+        (validateEmail(this.email) ? '' : errEmail(this.email));
       },
       validateFirstName(){
-        this.firstNameError = this.firstName.length == 0 ? 'First name can not be empty' :
-        (validateName(this.firstName) ? '' : this.firstName  + ' is not a name');
+        this.firstNameError = this.firstName.length == 0 ? errNameEmp() :
+        (validateName(this.firstName) ? '' : errName(this.firstName));
       },
       validateLastName(){
-        this.lastNameError = this.lastName.length == 0 ? 'First name can not be empty' :
-        (validateName(this.lastName) ? '' : this.lastName  + ' is not a name');
+        this.lastNameError = this.lastName.length == 0 ? errNameEmp() :
+        (validateName(this.lastName) ? '' : errName(this.lastName));
       },
-      submitHandler(){
+      async submitHandler(){
         this.validatePassword();
         this.checkEmail();
         this.validateFirstName();
@@ -203,7 +213,17 @@
 
         if(this.emailError == '' && this.passwordError == '' 
           && this.firstNameError == '' && this.lastNameError == '' && this.rePasswordError == ''){
-          console.log("submit");
+            result = await SignUp(this.firstName, this.lastName, this.email, this.password) 
+            if(result.code == 400){
+              respondeError = result.error
+            }
+            else if(result.code == 201)
+            {
+              result = await Login(this.email, this.password)
+              if(result.code == 200){
+                this.$router.push("account")
+              }
+            }    
         }
       }
     }
