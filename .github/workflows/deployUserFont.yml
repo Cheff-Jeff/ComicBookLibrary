@@ -17,5 +17,5 @@ jobs:
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
     - name: Docker build
       run: |
-        docker build -t comics/userFrond ./user-front-end
-        docker push comics/userFrond
+        docker build -t comics/userfrond ./user-front-end
+        docker push comics/userfrond
