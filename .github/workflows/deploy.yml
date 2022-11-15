@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-      matrix: { dir: ['./user-front-end', './admin-front-end', './ComicsBackend', './UserBackend'] }
+      matrix: { dir: ['./user-front-end', './admin-front-end', './ComicsBackend/ComicsBackend', './UserBackend/UserBackend'] }
     steps:
     - name: Checkout
       uses: actions/checkout@v3
