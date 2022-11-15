@@ -216,7 +216,7 @@ describe('validate name', ()=>{
     
     wrapper.find('input[name="firstName"]').setValue(badName)
     wrapper.vm.validateFirstName()
-    expect(wrapper.vm.firstNameError).toBe(`${badName} is not a name`)
+    expect(wrapper.vm.firstNameError).toBe(`${badName} is not a name.`)
 
     wrapper.find('input[name="firstName"]').setValue('')
     wrapper.vm.validateFirstName()
@@ -236,7 +236,7 @@ describe('validate name', ()=>{
     
     wrapper.find('input[name="lastname"]').setValue(badName)
     wrapper.vm.validateLastName()
-    expect(wrapper.vm.lastNameError).toBe(`${badName} is not a name`)
+    expect(wrapper.vm.lastNameError).toBe(`${badName} is not a name.`)
 
     wrapper.find('input[name="lastname"]').setValue('')
     wrapper.vm.validateLastName()
