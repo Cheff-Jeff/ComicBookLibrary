@@ -1,6 +1,6 @@
 FROM node:lts-alpine as build-stage
 COPY package*.json ./
-RUN npm install --force
+RUN npm ci
 COPY . .
 RUN npm run build
 
