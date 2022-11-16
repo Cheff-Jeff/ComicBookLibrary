@@ -27,4 +27,4 @@ jobs:
           context: .
           file: ./user-front-end/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/clockbox:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/comic-book-library:latest
