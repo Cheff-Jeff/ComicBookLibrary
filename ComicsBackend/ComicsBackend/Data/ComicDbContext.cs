@@ -25,5 +25,6 @@ namespace ComicsBackend.Data
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Writer> Writers { get; set; }
         public DbSet<Comic> Comics { get; set; }
+        public DbSet<Library> libraries { get; set; }
     }
 }
