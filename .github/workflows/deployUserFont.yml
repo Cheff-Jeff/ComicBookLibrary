@@ -10,7 +10,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
       - name: build vuejs projects
         working-directory: ${{ env.working-directory }}
         run: | 
@@ -18,6 +17,8 @@ jobs:
               npm run build
   docker:
     runs-on: ubuntu-latest
+    env: 
+      working-directory: "./user-front-end"
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -31,6 +32,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          file: ./Dockerfile
+          file: ${{ env.working-directory }}/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/comic-book-library:latest
