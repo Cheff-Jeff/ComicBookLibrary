@@ -8,10 +8,13 @@ jobs:
   build:
    runs-on: ubuntu-latest
     steps:
+      - name: Get location
+        run:
+          working-directory: ./user-front-end
+
       - name: Checkout code
         uses: actions/checkout@v2
-        working-directory: ./user-front-end
-
+        
       - name: build vuejs projects
         run: | 
               npm install
