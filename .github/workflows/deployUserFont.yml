@@ -35,4 +35,4 @@ jobs:
           context: ${{ env.working-directory }}
           file: ${{ env.working-directory }}/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/comic-book-library:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/comic-book-library:userfrondend
