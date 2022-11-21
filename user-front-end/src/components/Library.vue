@@ -2,23 +2,35 @@
   import {getUserLibrary} from '@/assets/javascript/library'
   import ComicMaster from '@/components/ComicMaster.vue';
   import {removeItem} from '@/assets/javascript/library'
-  const comics = getUserLibrary(sessionStorage.getItem('user'));
+  const LibraryItems = getUserLibrary(sessionStorage.getItem('user'));
 </script>
 
 <template>
-  <div class="row" v-if="comics">
-    <div class="col-md-4" v-for="comic in comics" :key="comic.id">
+  <div class="row" v-if="LibraryItems">
+    <div class="col-md-4" v-for="item in LibraryItems" :key="item.id">
       <ComicMaster 
-        :Title="comic.comic.title"
-        :Link="comic.comic.id"
-        :Image="comic.comic.image"
+        :Title="item.comic.title"
+        :Link="item.comic.id"
+        :Image="item.comic.image"
       />
-      <button class="btn btn-danger">
+      <button class="btn btn-danger" @click="remove(item.id)">
         remove comic
       </button>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    async remove(id){
+      let result = await removeItem(id)
+      console.log(result);
+      this.$router.go()
+    }
+  },
+}
+</script>
 
 <style>
 
