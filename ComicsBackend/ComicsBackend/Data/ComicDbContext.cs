@@ -26,5 +26,8 @@ namespace ComicsBackend.Data
         public DbSet<Writer> Writers { get; set; }
         public DbSet<Comic> Comics { get; set; }
         public DbSet<Library> libraries { get; set; }
+    
+        //Add-Migration Name -o folder/folder
+        //Update-Database
     }
 }

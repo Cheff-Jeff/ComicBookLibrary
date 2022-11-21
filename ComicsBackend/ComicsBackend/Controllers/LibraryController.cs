@@ -13,14 +13,16 @@ namespace ComicsBackend.Controllers
         private readonly ComicDbContext _context;
         public LibraryController(ComicDbContext context) => _context = context;
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAll([FromQuery] QueryParameters parameters, int id)
+        [HttpGet("{userId}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetAll([FromQuery] QueryParameters parameters, int userId)
         {
-            if (String.IsNullOrEmpty(id.ToString()))
+            if (!String.IsNullOrEmpty(userId.ToString()))
             {
                 IQueryable<Library> library = _context.libraries;
                 library = library
-                    .Where(u => u.UserId == id)
+                    .Where(u => u.UserId == userId)
+                    .Include(c => c.Comic)
                     .Skip(parameters.Size * (parameters.Page - 1))
                     .Take(parameters.Size);
 
@@ -29,20 +31,10 @@ namespace ComicsBackend.Controllers
             return BadRequest("User not found");
         }
 
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Library), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetById(int id)
-        {
-            Library? library = await _context.libraries
-                .FirstOrDefaultAsync(e => e.Id == id);
-
-            return library == null ? NotFound() : Ok(library);
-        }
-
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(Library library)
-        { 
+        {
             _context.Entry(library).State = EntityState.Modified;
 
             await _context.libraries.AddAsync(library);
@@ -52,20 +44,35 @@ namespace ComicsBackend.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Delete(int id)
-        { 
+        {
             Library? library = await _context.libraries.FindAsync(id);
             if (library == null)
             {
                 return NotFound();
             }
-            else 
-            { 
+            else
+            {
                 _context.libraries.Remove(library);
                 await _context.SaveChangesAsync();
-                
+
                 return NoContent();
             }
+        }
+
+        [HttpGet]
+        [Route("GetOneItem")]
+        [ProducesResponseType(typeof(Library), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetById(int id)
+        {
+            Library? library = await _context.libraries
+                .Include(c => c.Comic)
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            return library == null ? NotFound() : Ok(library);
         }
     }
 }

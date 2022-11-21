@@ -40,16 +40,7 @@
   </header>
   
   <main>
-    <Suspense>
-      <template #default>
-        <RouterView />
-      </template>
-      <template #fallback>
-        <div class="loading">
-          <h1>Loading ...</h1>
-        </div>
-      </template>
-    </Suspense>
+    <RouterView />
   </main>
 
   <footer>
@@ -60,18 +51,3 @@
     </div>
   </footer>
 </template>
-
-<script>
-export default {
-  data() {
-    return{
-      user: null
-    }
-  },
-  watch: {
-    $route (to, from){
-      this.user = localStorage.getItem('user');
-    }
-  }
-}
-</script>

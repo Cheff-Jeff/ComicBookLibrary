@@ -1,11 +1,12 @@
 <script setup>
-  import SideBar from "../components/SideBar.vue";
+  // import SideBar from "../components/SideBar.vue";
 </script>
 
 <template>
   <div class="account-wrap">
-    <SideBar />
+    <!-- <SideBar /> -->
     <div class="details-wrap">
+      <h1>Account</h1>
       
     </div>
   </div>
