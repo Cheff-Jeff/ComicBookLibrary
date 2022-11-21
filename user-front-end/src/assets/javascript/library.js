@@ -1,4 +1,5 @@
 import axios from "axios"
+import { ref } from 'vue';
 
 export const addItem = async (comicId) => {
   const data = {
@@ -46,22 +47,18 @@ export const removeItem = async (id) => {
   return result
 }
 
-export const getUserLibrary = async (userId) => {
-  let result = null
-  try {
+export const getUserLibrary = (userId) => {
+  let result = ref(null);
+
+  const getData = async () => {
     await axios.get(`${import.meta.env.VITE_API_LIBRARY}/${userId}`, {
       headers: { 'Content-type': 'application/json'}
-    }).then((response) => {
-      result = {
-        code: response.status
-      }
-    }) 
-  } catch (error) {
-    result = {
-      code: error.response.status,
-      error: error.response.data
-    }
+    }).then(
+      response => (result.value = response.data)
+    )
   }
+
+  getData()
 
   return result
 }
