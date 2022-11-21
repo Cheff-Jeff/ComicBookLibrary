@@ -9,8 +9,8 @@ jobs:
    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        working-directory: "./user-front-end"
         uses: actions/checkout@v2
+        working-directory: ./user-front-end
 
       - name: build vuejs projects
         run: | 
