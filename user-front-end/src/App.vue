@@ -17,12 +17,12 @@
           <span>Comics</span>
         </RouterLink>
       </div>
-      <!-- <div class="account-links" v-if="checkAccount">
+      <div class="account-links" v-if="checkAccount">
         <RouterLink :to="{name: 'account'}">
           <span>Account</span>
         </RouterLink>
-      </div> -->
-      <div class="account-links">
+      </div>
+      <div class="account-links" v-else>
         <RouterLink :to="{name: 'login'}">
           <span>Login</span>
         </RouterLink>
@@ -51,3 +51,25 @@
     </div>
   </footer>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      checkAccount: ''
+    }
+  },
+  watch: {
+    $route() {
+      if(sessionStorage.getItem('user'))
+      {
+        this.checkAccount = 'yes'
+      }
+      else
+      {
+        this.checkAccount = ''
+      }
+    }
+  }
+}
+</script>

@@ -1,0 +1,39 @@
+@import '../variables.scss';
+@import '../components/Buttons.scss';
+.lib-wrap{
+  min-height: inherit;
+  .spacer{
+    margin-top: 110px;
+  }
+  .comic-wrap{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    height: 100%;
+    .comic{
+      width: 70%;
+      margin: auto;
+    }
+    button{
+      margin: auto;
+    }
+  }
+}
+
+.no-content{
+  min-height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p{
+    width: 100%;
+    text-align: center;
+  }
+  .btn-custom{
+    margin: auto;
+    display: table;
+  }
+}
