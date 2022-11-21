@@ -79,7 +79,7 @@
                 </div>
               </div>
               <div class="btn-wrap">
-                <button class="btn btn-custom">
+                <button class="btn btn-custom" @click="$emit('AddComic')">
                   Add to library
                 </button>
               </div>
@@ -96,22 +96,6 @@
     </div>
   </section>
 </template>
-
-<script>
-  export default {
-    data(){
-      return{
-        imgPath: ''
-      }
-    },
-    mounted() {
-      this.imgPath = `/images/comics/${this.Image}`
-    },
-    methods: {
-      
-    }
-  };
-</script>
 
 <style scoped lang="scss">
   @import "@/assets/styles/components/ComicDetail.scss";

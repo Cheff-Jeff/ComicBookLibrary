@@ -48,12 +48,16 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       beforeEnter: (to,from,next) => {
+        console.log(CheckLogin());
         if(!CheckLogin()){
           next({ name: 'login' })
+          console.log("No user");
           return false
         }
         else{
+          console.log("In");
           next();
+          return true
         }
       },
       component: () => import('../views/AccountView.vue')

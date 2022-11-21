@@ -213,13 +213,13 @@
 
         if(this.emailError == '' && this.passwordError == '' 
           && this.firstNameError == '' && this.lastNameError == '' && this.rePasswordError == ''){
-            result = await SignUp(this.firstName, this.lastName, this.email, this.password) 
+            let result = await SignUp(this.firstName, this.lastName, this.email, this.password) 
             if(result.code == 400){
-              respondeError = result.error
+              this.respondeError = result.error
             }
             else if(result.code == 201)
             {
-              result = await Login(this.email, this.password)
+              let result = await Login(this.email, this.password)
               if(result.code == 200){
                 this.$router.push("account")
               }
