@@ -3,6 +3,8 @@
   import ComicMaster from '@/components/ComicMaster.vue';
   import {removeItem} from '@/assets/javascript/library'
   import { RouterLink } from 'vue-router';
+  import { ComicHub } from '@/assets/javascript/SignalR';
+
   const LibraryItems = getUserLibrary(sessionStorage.getItem('user'));
 </script>
 
@@ -16,7 +18,7 @@
             :Link="item.comic.id"
             :Image="item.comic.image"
           />
-          <button class="btn btn-danger" @click="remove(item.id)">
+          <button class="btn btn-danger" @click="remove(item.id, item.comic.id)">
             remove comic
           </button>
         </div>
@@ -37,10 +39,19 @@
 
 <script>
 export default {
+  data() {
+    return {
+      hub: null
+    }
+  },
+  mounted() {
+    this.hub = new ComicHub()
+  },
   methods: {
-    async remove(id){
+    async remove(id, comicId){
       let result = await removeItem(id)
       console.log(result);
+      this.hub.removePopularity(comicId)
       this.$router.go()
     }
   },

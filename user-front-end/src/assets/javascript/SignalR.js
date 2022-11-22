@@ -24,6 +24,7 @@ export class ComicHub {
       this.conn.stop()
     })
 
+    //Voer event uit
     const PopularComics = new Event('PopularComics')
   }
 
@@ -38,6 +39,12 @@ export class ComicHub {
 
   addNewPopularity(id){
     this.conn.invoke("AddPopularity", id).catch(function(err) {
+      return console.error(err.toString())
+    })
+  }
+
+  removePopularity(id){
+    this.conn.invoke("RemovePopularity", id).catch(function(err) {
       return console.error(err.toString())
     })
   }

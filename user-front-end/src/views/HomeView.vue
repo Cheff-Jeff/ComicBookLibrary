@@ -35,7 +35,7 @@
   />
   <section class="popular">
     <div class="container-fluid">
-      <div class="row" v-if="popComics && popularComics == null">
+      <div class="row" v-if="popComics && popularComics == null" v-auto-animate>
         <div 
           class="col-md-3 smaller"
           v-for="comic in popComics"
@@ -43,7 +43,7 @@
             <ComicMaster :Title="comic.title.rendered" :Link="comic.id" :Image="comic.image"/>
         </div>
       </div>
-      <div class="row" v-if="popularComics">
+      <div class="row" v-if="popularComics" v-auto-animate>
         <div 
           class="col-md-3 smaller"
           v-for="comic in popularComics"
@@ -72,7 +72,6 @@ export default {
   methods: {
     setComics(comics){
       console.log(comics);
-      this.popularComics = null
       this.popularComics = comics
     }
   },
