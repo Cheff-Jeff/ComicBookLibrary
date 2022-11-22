@@ -24,7 +24,7 @@ export class ComicHub {
       this.conn.stop()
     })
 
-    //const NewChat = new Event('NewChat')
+    const PopularComics = new Event('PopularComics')
   }
 
   async connect() {
@@ -34,5 +34,11 @@ export class ComicHub {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  addNewPopularity(id){
+    this.conn.invoke("AddPopularity", id).catch(function(err) {
+      return console.error(err.toString())
+    })
   }
 }

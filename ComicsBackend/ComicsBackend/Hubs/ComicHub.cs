@@ -2,6 +2,7 @@
 using ComicsBackend.Data;
 using ComicsBackend.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace ComicsBackend.Hubs
 {
@@ -29,7 +30,8 @@ namespace ComicsBackend.Hubs
             }
 
             List<Comic> comics = await _context.Comics.OrderByDescending(c => c.Popularity).Take(10).ToListAsync();
-            await Clients.All.SendAsync("RecivePopular",comics);
+            var data = JsonSerializer.Serialize(comics);
+            await Clients.All.SendAsync("RecivePopular",data);
         }
     }
 }

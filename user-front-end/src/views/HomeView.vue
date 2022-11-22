@@ -6,7 +6,7 @@
   import { ComicHub } from '@/assets/javascript/SignalR';
 
   const newComics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}?Size=5`);
-  const popComics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}?Size=10`);
+  const popComics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}/PopularComics`);
 </script>
 
 <template>
@@ -35,12 +35,20 @@
   />
   <section class="popular">
     <div class="container-fluid">
-      <div class="row" v-if="popComics">
+      <div class="row" v-if="popComics && popularComics == null">
         <div 
           class="col-md-3 smaller"
           v-for="comic in popComics"
           :key="comic.id">
             <ComicMaster :Title="comic.title.rendered" :Link="comic.id" :Image="comic.image"/>
+        </div>
+      </div>
+      <div class="row" v-if="popularComics">
+        <div 
+          class="col-md-3 smaller"
+          v-for="comic in popularComics"
+          :key="comic.Id">
+            <ComicMaster :Title="comic.Title" :Link="comic.Id" :Image="comic.Image"/>
         </div>
       </div>
     </div>
@@ -58,13 +66,12 @@ export default {
   mounted() {
     this.hub = new ComicHub()
     window.addEventListener('PopularComics', ()=>{
-      console.log(localStorage.getItem('popular'))
-      localStorage.removeItem('popular')
+      this.setComics(JSON.parse(localStorage.getItem('popular')))
     })
-    console.log(this.popComics);
   },
   methods: {
     setComics(comics){
+      console.log(comics);
       this.popularComics = null
       this.popularComics = comics
     }
