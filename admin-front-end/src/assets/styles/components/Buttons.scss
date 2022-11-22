@@ -15,4 +15,13 @@
     color: #000 !important;
     transition: all .5s ease-in-out;
   }
+  svg{
+    z-index: 2;
+    width: 25px;
+    height: 25px;
+    path {
+      fill: #fff;
+      stroke-linecap: round;
+    }
+  }
 }

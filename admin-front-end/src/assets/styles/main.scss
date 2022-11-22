@@ -94,6 +94,8 @@ p, span, a, i, b{
   text-decoration: none !important;
   font-weight: bold;
   position: relative;
+  display: inline-block;
+
   &::before {
     content: "";
     width: calc(100%);

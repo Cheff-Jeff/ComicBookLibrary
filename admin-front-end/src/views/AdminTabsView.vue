@@ -6,22 +6,43 @@
 <template>
   <Header></Header>
   <main>
-    <section class="tabs pt-5">
-      <div class="btn-wrap pt-5">
-        <p><RouterLink :to="{name: 'addWriters'}" class="link">
-          <span>Add writers</span>
-        </RouterLink></p><br>
-        <p><RouterLink :to="{name: 'addArtist'}" class="link">
-          <span>Add artists</span>
-        </RouterLink></p><br>
-        <p><RouterLink :to="{name: 'addPublichers'}" class="link">
-          <span>Add publichers</span>
-        </RouterLink></p>
+    <section class="tabs">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              <RouterLink :to="{name: 'addWriters'}" class="link">
+                <span>Add writers</span>
+              </RouterLink>
+            </p>
+          </div>
+          <div class="col-md-6">
+            <p>
+              <RouterLink :to="{name: 'addArtist'}" class="link">
+                <span>Add artists</span>
+              </RouterLink>
+            </p>
+          </div>
+          <div class="col-md-6">
+            <p>
+              <RouterLink :to="{name: 'addPublichers'}" class="link">
+                <span>Add publichers</span>
+              </RouterLink>
+            </p>
+          </div>
+          <div class="col-md-6">
+            <p>
+              <RouterLink :to="{name: 'addComics'}" class="link">
+                <span>Add comics</span>
+              </RouterLink>
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 </template>
 
-<style>
-
+<style lang="scss" scoped>
+@import "../assets/styles/pages/Home.scss";
 </style>

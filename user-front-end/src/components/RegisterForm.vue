@@ -151,9 +151,21 @@
         {{respondeError}}
       </span>
     </div>
-    <button type="submit" class="btn btn-custom">
-      Sign up
-    </button>
+    <div v-auto-animate>
+      <button type="submit" class="btn btn-custom" disabled v-if="loading">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+          <circle cx="50" cy="50" r="32" stroke-width="8" stroke="#fff" stroke-dasharray="50.26548245743669 50.26548245743669" fill="none" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
+          </circle>
+          <circle cx="50" cy="50" r="23" stroke-width="8" stroke="#fff" stroke-dasharray="36.12831551628262 36.12831551628262" stroke-dashoffset="36.12831551628262" fill="none" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;-360 50 50"></animateTransform>
+          </circle>
+        </svg>
+      </button>
+      <button type="submit" class="btn btn-custom" v-else>
+        Sign up
+      </button>
+    </div>
   </form>
 </template>
 
@@ -173,7 +185,8 @@
         rePassword: '',
         rePasswordError: '',
         rePasswordType: 'password',
-        respondeError: ''
+        respondeError: '',
+        loading: ''
       }
     },
     methods: {
@@ -213,14 +226,17 @@
 
         if(this.emailError == '' && this.passwordError == '' 
           && this.firstNameError == '' && this.lastNameError == '' && this.rePasswordError == ''){
+            this.loading = 'loading';
             let result = await SignUp(this.firstName, this.lastName, this.email, this.password) 
             if(result.code == 400){
+              this.loading = '';
               this.respondeError = result.error
             }
             else if(result.code == 201)
             {
               let result = await Login(this.email, this.password)
               if(result.code == 200){
+                this.loading = '';
                 this.$router.push("account")
               }
             }    
