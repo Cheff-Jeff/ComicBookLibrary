@@ -1,30 +1,38 @@
 name: Docker Image AdminFrond CD
-
 on:
   push:
     branches: [ "main" ]
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      working-directory: "./admin-front-end"
     steps:
-      -
-        name: Checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: build vue project
+        working-directory: ${{ env.working-directory }}
+        run: |
+              npm install
+              npm run build
+  Docker:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: "./admin-front-end"
+    steps:
+      - name: Checkout
         uses: actions/checkout@v3
-      -
-        name: Login to Docker Hub
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-      -
-        name: Build and push
+      - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
-          file: ./admin-front-end/Dockerfile
+          context: ${{ env.working-directory }}
+          file: ${{ env.working-directory }}/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/comic-book-library:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/comic-book-library:adminfrondend
