@@ -1,8 +1,10 @@
 <script setup>
-  import BannerRight from '../components/BannerRight.vue';
-  import BannerLeft from '../components/BannerLeft.vue';
-  import ComicMaster from '../components/ComicMaster.vue';
-  import { useCache, useFetch } from '../assets/javascript/fetchNewComics';
+  import BannerRight from '@/components/BannerRight.vue';
+  import BannerLeft from '@/components/BannerLeft.vue';
+  import ComicMaster from '@/components/ComicMaster.vue';
+  import { useCache, useFetch } from '@/assets/javascript/fetchNewComics';
+  import { ComicHub } from '@/assets/javascript/SignalR';
+
   const newComics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}?Size=5`);
   const popComics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}?Size=10`);
 </script>
@@ -44,6 +46,31 @@
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      hub: null,
+      popularComics: null
+    }
+  },
+  mounted() {
+    this.hub = new ComicHub()
+    window.addEventListener('PopularComics', ()=>{
+      console.log(localStorage.getItem('popular'))
+      localStorage.removeItem('popular')
+    })
+    console.log(this.popComics);
+  },
+  methods: {
+    setComics(comics){
+      this.popularComics = null
+      this.popularComics = comics
+    }
+  },
+}
+</script>
 
 <style scoped lang="scss">
   @import "@/assets/styles/pages/Home.scss";

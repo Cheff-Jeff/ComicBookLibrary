@@ -13,7 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(p => p.AddPolicy("corspolicy", build => 
 {
-    build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    //build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed((host) => true);
+    build.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed((host) => true).AllowCredentials();
 }));
 builder.Services.AddDbContext<ComicDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddSignalR(options => 
