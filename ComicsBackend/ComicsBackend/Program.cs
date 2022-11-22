@@ -1,4 +1,5 @@
 using ComicsBackend.Data;
+using ComicsBackend.Hubs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
@@ -15,6 +16,10 @@ builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
     build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 }));
 builder.Services.AddDbContext<ComicDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+builder.Services.AddSignalR(options => 
+{
+    options.EnableDetailedErrors = true;
+});
 
 var app = builder.Build();
 
@@ -38,5 +43,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<ComicHub>("/comicHub");
 
 app.Run();
