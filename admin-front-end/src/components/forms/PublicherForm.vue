@@ -40,6 +40,7 @@
                 type="text" 
                 class="form-control"
                 v-model="name"
+                placeholder="Publicher name"
                 @blur="validate"
                 @keyup="validate"
               >
