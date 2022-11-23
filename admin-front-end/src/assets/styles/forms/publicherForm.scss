@@ -1,0 +1,67 @@
+@import "../variables.scss";
+@import "../components/Buttons.scss";
+
+.page-wrap{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .form{
+    background: $sectionGray;
+    width: 45%;
+    padding: 20px;
+    border-radius: 20px;
+    .title-wrap{
+      text-align: center;
+      h1{
+        color: $defauntTextColor;
+        font-family: $mainFont;
+        letter-spacing: $titlePacing;
+        font-size: $formTitleSize;
+        margin-left: $titlePargin;
+        padding: 15px 0;
+      }
+    }
+    .input-wrap{
+      display: flex;
+      border: solid 1px $defauntTextColor;
+      border-radius: 10px;
+      background-color: #f5f5f5;
+      padding: 3px;
+      
+      input{
+        display: block;
+        border: none;
+        background-color: $transparant;
+        outline: none !important;
+        width: 100%;
+        font-family: $mainFont !important;
+        letter-spacing: 1px;
+        font-size: $defauntTextSize;
+        margin-top: -1px;
+      }
+  
+      ::placeholder{
+        font-style: italic;
+      }
+      ::-ms-input-placeholder { /* Microsoft Edge */
+        font-style: italic;
+      }
+    }
+
+    .btn-custom{
+      margin-top: 15px;
+      width: 100%;
+      display: block;
+    }
+
+    .error{
+      width: 100%;
+      span{
+        color: $mainRed;
+        font-size: small;
+      }
+    }
+  }
+}
