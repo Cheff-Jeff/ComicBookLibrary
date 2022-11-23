@@ -1,0 +1,147 @@
+@import "../variables.scss";
+@import "../components//Buttons.scss";
+
+.comics-wrapper{
+  padding-top: 100px;
+}
+.card-row{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px 0;
+  width: fit-content;
+  margin: auto;
+  .comic-card{
+    flex: 1 0 21%;
+    height: 450px;
+    width: 400px;
+    min-width: 320px;
+    max-width: 320px;
+    padding: 15px;
+    border-radius: 16px;
+    background: #17141d;
+    box-shadow: -1rem 0 3rem #000;
+    display: flex;
+    flex-direction: column;
+    transition: .2s;
+    margin: 0;
+    scroll-snap-align: start;
+    clear: both;
+    position: relative;
+    &:focus-within~.comic-card{
+      transform: translateX(130px);
+    }
+    &:hover~.comic-card {
+      transform: translateX(130px);
+    }
+    &:hover {
+      transform: translateY(-1rem);
+    }
+    &:not(:first-child) {
+      margin-left: -130px;
+    }
+
+    .card-head{
+      margin-bottom: 5px;
+      p {
+        font-size: 16px;
+        line-height: 18px;
+        min-height: 37px;
+        color: $defauntTextColor;
+        font-family: $mainFont;
+        letter-spacing: 1.5px;
+        border: 0;
+        display: inline-block;
+        margin-bottom: 0px;
+        margin-left: 3px;
+      }
+    }
+
+    .card-body{
+      .img-wrapper{
+        margin-bottom: 12px;
+        min-height: 322px;
+        img{
+          max-width: 215px;
+          margin: auto;
+        }
+      }
+      .btn{
+        font-size: 15px;
+        &.btn-custom{
+          width: 84px;
+        }
+        &.btn-custom-red{
+          float: right;
+        }
+      }
+    }
+  }
+}
+
+.delete-modal{
+  background: $gradientHeader;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s ease-in-out;
+  overflow: hidden;
+  &.open{
+    height: 100%;
+    transition: all .3s ease-in-out;
+  }
+  &:hover{
+    cursor: pointer; 
+  }
+  .modal-wrap{
+    background: $sectionGray;
+    padding: 20px;
+    border-radius: 15px;
+    width: 450px;
+    &:hover{
+      cursor: auto;
+    }
+    .custom-modal-head{
+      display: flex;
+      justify-content: space-between;
+      h5{
+        color: $defauntTextColor;
+        font-family: $mainFont;
+        letter-spacing: 1px;
+      }
+      svg{
+        width: 23px;
+        height: 23px;
+        fill: $defauntTextColor;
+        transition: all .5s ease-in-out;
+        &:hover{
+          cursor: pointer; 
+          fill: #666;
+          transition: all .5s ease-in-out;
+        }
+      }
+    }
+    .custom-modal-body{
+      margin: 25px 0 40px;
+      p{
+        font-size: 16px;
+        color: $defauntTextColor;
+        font-family: $mainFont;
+        letter-spacing: 1.5px;
+      }
+    }
+
+    .custom-modal-footer{
+      .btn{
+        font-size: 15px;
+        &.btn-custom-red{
+          float: right;
+        }
+      }
+    }
+  }
+}
