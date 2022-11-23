@@ -7,10 +7,6 @@ export class ComicHub {
     this.conn = new HubConnectionBuilder()
       .withUrl(`${import.meta.env.VITE_API_SIGNALR}`)
       .build()
-    
-    this.conn.onclose(async () => {
-      await this.connect();
-    })
 
     this.connect();
 
@@ -19,7 +15,7 @@ export class ComicHub {
       localStorage.setItem('popular', comics)
       window.dispatchEvent(PopularComics)
     })
-
+ 
     this.conn.on("Close", ()=>{
       this.conn.stop()
     })
