@@ -20,7 +20,7 @@ namespace UserBackend.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetUser(int id) 
+        public async Task<IActionResult> GetUserOne(int id) 
         {
             User? user = await _context.Users.FindAsync(id);
             return user == null ? NotFound() : Ok(user);
@@ -79,7 +79,7 @@ namespace UserBackend.Controllers
                 newUser.encrypt();
                 await _context.Users.AddAsync(newUser);
                 await _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(GetUser), new { id = newUser.Id }, newUser);
+                return CreatedAtAction(nameof(GetUserOne), new { id = newUser.Id }, newUser);
             }
             return BadRequest("User already exists");
         }
