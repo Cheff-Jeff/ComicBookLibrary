@@ -75,80 +75,96 @@
               <span>{{DescriptionError}}</span>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-6">
             <span v-if="oldPublicherId && oldPublicher">
               currend publicher: {{oldPublicher}}
             </span>
-            <select name="" class="form-control" v-model="Publicher" @change="checkPublicher">
-              <option v-if="oldPublicherId" value="" disabled selected>Select a new publicher.</option>
-              <option v-else value="" disabled selected>Select a publicher.</option>
-              <option 
-                v-for="publicher in publichers"
-                :key="publicher.id"
-                :value="publicher.id">
-                <span>
-                  {{publicher.name}}
-                </span>
-              </option>
-            </select>
-            <span>{{PucherError}}</span>
+            <div class="input-wrap">
+              <select name="" class="form-control" v-model="Publicher" @change="checkPublicher">
+                <option v-if="oldPublicherId" value="" disabled selected>Select a new publicher.</option>
+                <option v-else value="" disabled selected>Select a publicher.</option>
+                <option 
+                  v-for="publicher in publichers"
+                  :key="publicher.id"
+                  :value="publicher.id">
+                  <span>
+                    {{publicher.name}}
+                  </span>
+                </option>
+              </select>
+              <div v-if="PucherError" class="error">
+                <span>{{PucherError}}</span>>
+              </div>
+            </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-6">
             <span v-if="oldWriterId && oldWriter">
               currend writer: {{oldWriter}}
             </span>
-            <select name="" class="form-control" v-model="Writer" @change="checkWhriter">
-              <option v-if="oldWriterId" value="" disabled selected>Select a new writer.</option>
-              <option v-else value="" disabled selected>Select a writer.</option>
-              <option 
-                v-for="writer in writers"
-                :key="writer.id"
-                :value="writer.id">
-                <span>
-                  {{writer.name}}
-                </span>
-              </option>
-            </select>
-            <span>{{WriterError}}</span>
+            <div class="input-wrap">
+              <select name="" class="form-control" v-model="Writer" @change="checkWhriter">
+                <option v-if="oldWriterId" value="" disabled selected>Select a new writer.</option>
+                <option v-else value="" disabled selected>Select a writer.</option>
+                <option 
+                  v-for="writer in writers"
+                  :key="writer.id"
+                  :value="writer.id">
+                  <span>
+                    {{writer.name}}
+                  </span>
+                </option>
+              </select>
+              <div v-if="WriterError" class="error">
+                <span>{{WriterError}}</span>
+              </div>
+            </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-6">
             <span v-if="oldArtistId && oldArtist">
               currend artist: {{oldArtist}}
             </span>
-            <select name="" class="form-control" v-model="Artist" @change="checkArtist">
-              <option v-if="oldArtistId" value="" disabled selected>Select a new artist.</option>
-              <option v-else value="" disabled selected>Select an artist.</option>
-              <option 
-                v-for="artist in artists"
-                :key="artist.id"
-                :value="artist.id">
-                <span>
-                  {{artist.name}}
-                </span>
-              </option>
-            </select>
-            <span>{{ArtisError}}</span>
+            <div class="input-wrap">
+              <select name="" class="form-control" v-model="Artist" @change="checkArtist">
+                <option v-if="oldArtistId" value="" disabled selected>Select a new artist.</option>
+                <option v-else value="" disabled selected>Select an artist.</option>
+                <option 
+                  v-for="artist in artists"
+                  :key="artist.id"
+                  :value="artist.id">
+                  <span>
+                    {{artist.name}}
+                  </span>
+                </option>
+              </select>
+              <div v-if="ArtisError" class="error">
+                <span>{{ArtisError}}</span>
+              </div>
+            </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-6">
             <span v-if="oldCoverArtistId && oldCoverArtist">
               currend cover artist: {{oldCoverArtist}}
             </span>
-            <select name="" class="form-control" v-model="CoverArtist" @change="checkCoverArtist">
-              <option v-if="oldCoverArtistId" value="" disabled selected>Select a new cover artist.</option>
-              <option v-else value="" disabled selected>Select a cover artist.</option>
-              <option 
-                v-for="artist in artists"
-                :key="artist.id"
-                :value="artist.id">
-                <span>
-                  {{artist.name}}
-                </span>
-              </option>
-            </select>
-            <span>{{CoverArtisError}}</span>
+            <div class="input-wrap">
+              <select name="" class="form-control" v-model="CoverArtist" @change="checkCoverArtist">
+                <option v-if="oldCoverArtistId" value="" disabled selected>Select a new cover artist.</option>
+                <option v-else value="" disabled selected>Select a cover artist.</option>
+                <option 
+                  v-for="artist in artists"
+                  :key="artist.id"
+                  :value="artist.id">
+                  <span>
+                    {{artist.name}}
+                  </span>
+                </option>
+              </select>
+              <div v-if="CoverArtisError" class="error">
+                <span>{{CoverArtisError}}</span>
+              </div>
+            </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-custom">
           Add comic
         </button>
       </form>
