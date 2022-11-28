@@ -1,19 +1,32 @@
 #CI of CICD
-name: Asp Webapi Continuous Integration
+name: Asp Webapi users Continuous Integration
 on:
   push:
     branches: [ "main" ]
+    paths:
+    - '**.cs'
+    - '**.csproj'
   pull_request:
     branches: [ "main" ]
+    paths:
+    - '**.cs'
+    - '**.csproj'
   workflow_dispatch:
+env:
+  DOTNET_VERSION: '6.0.401'
 jobs: 
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v3
-      - name: Run a one-line script
-        run: echo Hello, world!
-      - name: Run a multi-line script
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Install, Build and Test
+        working-directory: ./UserBackend
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+              dotnet restore
+              dotnet build --configuration Release --no-restore
+              dotnet test --no-restore --verbosity normal
