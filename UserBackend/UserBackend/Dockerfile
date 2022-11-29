@@ -1,13 +1,12 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/runtime-deps:6.0-alpine AS base
 WORKDIR /app
-# RUN apk add --no-cache icu-libs
+RUN apk add --no-cache icu-libs
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 WORKDIR /src
 COPY ["UserBackend/UserBackend.csproj", "UserBackend/"]
 RUN dotnet restore "UserBackend/UserBackend.csproj"
@@ -25,10 +24,10 @@ RUN dotnet publish "UserBackend/UserBackend.csproj" -c Release -o /app/publish \
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "UserBackend.dll"]
+ENTRYPOINT ["./UserBackend"]
 
-# docker build -t naam .
-# docker run -it -p 8000:80 --rm -e ASPNETCORE_ENVIRONMENT=Development --name naam naam
-
+# van af parend folder
+# docker build -f UserBackend\Dockerfile --force-rm -t naam .
+# docker run -it -p 8000:80 --rm -e ASPNETCORE_ENVIRONMENT=Development --name container-naam image-naam
 
 # naar swagger ui met: http://localhost:8000/swagger/index.html
