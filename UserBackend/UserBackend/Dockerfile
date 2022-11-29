@@ -2,20 +2,21 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-# RUN apk add --no-cache icu-libs
+RUN apk add --no-cache icu-libs
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["./UserBackend.csproj", "UserBackend/"]
-RUN dotnet restore "./UserBackend/UserBackend.csproj"
+COPY ["UserBackend/UserBackend.csproj", "UserBackend/"]
+RUN dotnet restore "UserBackend/UserBackend.csproj"
 COPY . .
-WORKDIR "/src/."
-RUN dotnet build "./UserBackend.csproj" -c Release -o /app/build
+WORKDIR "/src/"
+RUN dotnet build "UserBackend/UserBackend.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "./UserBackend.csproj" -c Release -o /app/publish \
+RUN dotnet publish "UserBackend/UserBackend.csproj" -c Release -o /app/publish \
    -r alpine-x64 \
    --self-contained true \
    -p:PublishTrimmed=true \
