@@ -26,6 +26,16 @@ namespace ComicsBackend.Controllers
             return Ok(await comics.ToArrayAsync());
         }
 
+        [HttpGet]
+        [Route("PopularComics")]
+        public async Task<IActionResult> GetPupularComics()
+        { 
+            IQueryable<Comic> comics = _context.Comics;
+            comics = comics.OrderByDescending(c => c.Popularity).Take(10);
+
+            return Ok(await comics.ToArrayAsync());
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Comic), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
