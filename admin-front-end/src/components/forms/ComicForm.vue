@@ -57,9 +57,6 @@
             </div>
           </div>
           <div class="col-md-6 mb-2">
-            <div v-if="oldImg">
-              <img :src="`${imgLink}/${oldImg}`" alt="oldCover" style="max-width: 150px;">
-            </div>
             <div class="input-wrap">
               <input class="form-control" type="file" id="formFile" @change="checkImage">
             </div>
@@ -76,10 +73,10 @@
             </div>
           </div>
           <div class="col-md-6">
-            <span v-if="oldPublicherId && oldPublicher">
+            <span class="old-info" v-if="oldPublicherId && oldPublicher">
               currend publicher: {{oldPublicher}}
             </span>
-            <div class="input-wrap">
+            <div class="input-wrap select-input">
               <select name="" class="form-control" v-model="Publicher" @change="checkPublicher">
                 <option v-if="oldPublicherId" value="" disabled selected>Select a new publicher.</option>
                 <option v-else value="" disabled selected>Select a publicher.</option>
@@ -98,10 +95,10 @@
             </div>
           </div>
           <div class="col-md-6">
-            <span v-if="oldWriterId && oldWriter">
+            <span class="old-info" v-if="oldWriterId && oldWriter">
               currend writer: {{oldWriter}}
             </span>
-            <div class="input-wrap">
+            <div class="input-wrap select-input">
               <select name="" class="form-control" v-model="Writer" @change="checkWhriter">
                 <option v-if="oldWriterId" value="" disabled selected>Select a new writer.</option>
                 <option v-else value="" disabled selected>Select a writer.</option>
@@ -120,10 +117,10 @@
             </div>
           </div>
           <div class="col-md-6">
-            <span v-if="oldArtistId && oldArtist">
+            <span class="old-info" v-if="oldArtistId && oldArtist">
               currend artist: {{oldArtist}}
             </span>
-            <div class="input-wrap">
+            <div class="input-wrap select-input">
               <select name="" class="form-control" v-model="Artist" @change="checkArtist">
                 <option v-if="oldArtistId" value="" disabled selected>Select a new artist.</option>
                 <option v-else value="" disabled selected>Select an artist.</option>
@@ -142,10 +139,10 @@
             </div>
           </div>
           <div class="col-md-6">
-            <span v-if="oldCoverArtistId && oldCoverArtist">
+            <span class="old-info" v-if="oldCoverArtistId && oldCoverArtist">
               currend cover artist: {{oldCoverArtist}}
             </span>
-            <div class="input-wrap">
+            <div class="input-wrap select-input">
               <select name="" class="form-control" v-model="CoverArtist" @change="checkCoverArtist">
                 <option v-if="oldCoverArtistId" value="" disabled selected>Select a new cover artist.</option>
                 <option v-else value="" disabled selected>Select a cover artist.</option>
@@ -169,6 +166,9 @@
         </button>
       </form>
     </section>
+    <div v-if="oldImg" class="cover-img">
+      <img :src="`${imgLink}/${oldImg}`" alt="oldCover">
+    </div>
   </div>
 </template>
 
