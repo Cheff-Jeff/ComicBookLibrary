@@ -23,16 +23,13 @@
               </div>
               <div class="row justify-content-center">
                 <div class="col-md-12 custom-spacer">
-                  <button class="btn btn-custom-red" @click.prevent="remove(item.id)">
+                  <button class="btn btn-custom-red" @click.prevent="remove(item.id, item.comic.id)">
                     remove comic
                   </button>
                 </div>
               </div>
             </div>
           </RouterLink>
-          <button class="btn btn-danger" @click="remove(item.id, item.comic.id)">
-            remove comic
-          </button>
         </div>
       </div>
     </div>
