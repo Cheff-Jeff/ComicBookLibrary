@@ -2,6 +2,7 @@
   import SideBar from "@/components/SideBar.vue";
   import Library from "@/components/Library.vue";
   import Account from "@/components/Account.vue";
+  import { Logout } from "@/assets/javascript/authentication";
 </script>
 
 <template>
@@ -12,6 +13,7 @@
           <SideBar 
             @library="showLibrary" 
             @account="showAccount"
+            @logout="signOff"
           />
         </div>
         <div class="col-md-11">
@@ -41,6 +43,10 @@ export default {
     showAccount(){
       this.account = 'open'
       this.library = ''
+    },
+    signOff(){
+      Logout()
+      this.$router.push({name: 'home'})
     }
   },
 }
