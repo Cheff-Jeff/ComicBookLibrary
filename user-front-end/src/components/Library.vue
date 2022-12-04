@@ -1,24 +1,35 @@
 <script setup>
   import {getUserLibrary} from '@/assets/javascript/library'
-  import ComicMaster from '@/components/ComicMaster.vue';
   import {removeItem} from '@/assets/javascript/library'
   import { RouterLink } from 'vue-router';
+  const imgLink = import.meta.env.VITE_IMAGES
+  import { ComicHub } from '@/assets/javascript/SignalR';
+
   const LibraryItems = getUserLibrary(sessionStorage.getItem('user'));
 </script>
 
 <template>
   <div class="lib-wrap">
-    <div class="row spacer" v-if="LibraryItems && LibraryItems.length > 0">
-      <div class="col-md-3" v-for="item in LibraryItems" :key="item.id">
-        <div class="comic-wrap">
-          <ComicMaster 
-            :Title="item.comic.title"
-            :Link="item.comic.id"
-            :Image="item.comic.image"
-          />
-          <button class="btn btn-danger" @click="remove(item.id)">
-            remove comic
-          </button>
+    <div class="comics-wrapper" v-if="LibraryItems && LibraryItems.length > 0">
+      <div class="card-row" v-for="i in Math.ceil(LibraryItems.length / 5)" :key="i">
+        <div class="comic-card" v-for="item in LibraryItems.slice((i - 1) * 5, i * 5)" :key="item.id">
+          <RouterLink :to="{ name: 'comicDetail', params: { slug: item.comic.id } }">
+            <div class="card-head">
+              <p>{{item.comic.title}}</p>
+            </div>
+            <div class="card-body">
+              <div class="img-wrapper">
+                <img :src="`${imgLink}/${item.comic.image}`" alt="comic cover"/>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-md-12 custom-spacer">
+                  <button class="btn btn-custom-red" @click.prevent="remove(item.id, item.comic.id)">
+                    remove comic
+                  </button>
+                </div>
+              </div>
+            </div>
+          </RouterLink>
         </div>
       </div>
     </div>
@@ -37,10 +48,19 @@
 
 <script>
 export default {
+  data() {
+    return {
+      hub: null
+    }
+  },
+  mounted() {
+    this.hub = new ComicHub()
+  },
   methods: {
-    async remove(id){
+    async remove(id, comicId){
       let result = await removeItem(id)
       console.log(result);
+      this.hub.removePopularity(comicId)
       this.$router.go()
     }
   },

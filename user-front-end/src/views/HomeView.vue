@@ -1,10 +1,12 @@
 <script setup>
-  import BannerRight from '../components/BannerRight.vue';
-  import BannerLeft from '../components/BannerLeft.vue';
-  import ComicMaster from '../components/ComicMaster.vue';
-  import { useCache, useFetch } from '../assets/javascript/fetchNewComics';
+  import BannerRight from '@/components/BannerRight.vue';
+  import BannerLeft from '@/components/BannerLeft.vue';
+  import ComicMaster from '@/components/ComicMaster.vue';
+  import { useCache, useFetch } from '@/assets/javascript/fetchNewComics';
+  import { ComicHub } from '@/assets/javascript/SignalR';
+
   const newComics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}?Size=5`);
-  const popComics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}?Size=10`);
+  const popComics = useFetch(`${import.meta.env.VITE_API_COMICS_URL}/PopularComics`);
 </script>
 
 <template>
@@ -33,7 +35,7 @@
   />
   <section class="popular">
     <div class="container-fluid">
-      <div class="row" v-if="popComics">
+      <div class="row" v-if="popComics && popularComics == null" v-auto-animate>
         <div 
           class="col-md-3 smaller"
           v-for="comic in popComics"
@@ -41,9 +43,40 @@
             <ComicMaster :Title="comic.title.rendered" :Link="comic.id" :Image="comic.image"/>
         </div>
       </div>
+      <div class="row" v-if="popularComics" v-auto-animate>
+        <div 
+          class="col-md-3 smaller"
+          v-for="comic in popularComics"
+          :key="comic.Id">
+            <ComicMaster :Title="comic.Title" :Link="comic.Id" :Image="comic.Image"/>
+        </div>
+      </div>
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      hub: null,
+      popularComics: null
+    }
+  },
+  mounted() {
+    this.hub = new ComicHub()
+    window.addEventListener('PopularComics', ()=>{
+      this.setComics(JSON.parse(localStorage.getItem('popular')))
+    })
+  },
+  methods: {
+    setComics(comics){
+      console.log(comics);
+      this.popularComics = comics
+    }
+  },
+}
+</script>
 
 <style scoped lang="scss">
   @import "@/assets/styles/pages/Home.scss";

@@ -18,6 +18,8 @@ namespace ComicsBackend.Models
         [Required]
         public string Image { get; set; }
 
+        public int Popularity { get; set; } = 0;
+
         public int PublisherId { get; set; }
         public Publisher Publisher { get; set; }
 

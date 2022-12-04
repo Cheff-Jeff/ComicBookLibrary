@@ -1,0 +1,122 @@
+@import "../variables.scss";
+@import "../components/Buttons.scss";
+
+.page-wrap{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .form{
+    background: $sectionGray;
+    width: 65%;
+    padding: 20px;
+    border-radius: 20px;
+    .title-wrap{
+      text-align: center;
+      h1{
+        color: $defauntTextColor;
+        font-family: $mainFont;
+        letter-spacing: $titlePacing;
+        font-size: $formTitleSize;
+        margin-left: $titlePargin;
+        padding: 15px 0;
+      }
+    }
+    .input-wrap{
+      display: flex;
+      border: solid 1px $defauntTextColor;
+      border-radius: 10px;
+      background-color: #f5f5f5;
+      padding: 3px;
+      
+      input{
+        display: block;
+        border: none;
+        background-color: $transparant;
+        outline: none !important;
+        width: 100%;
+        font-family: $mainFont !important;
+        letter-spacing: 1px;
+        font-size: $defauntTextSize;
+        margin-top: -1px;
+        box-shadow: none !important;
+      }
+  
+      textarea{
+        display: block;
+        border: none;
+        background-color: $transparant;
+        outline: none !important;
+        width: 100%;
+        font-family: $mainFont !important;
+        letter-spacing: 1px;
+        font-size: $defauntTextSize;
+        margin-top: -1px;
+        resize: none;
+        box-shadow: none !important;
+      }
+
+      ::placeholder{
+        font-style: italic;
+      }
+      ::-ms-input-placeholder { /* Microsoft Edge */
+        font-style: italic;
+      }
+
+      &.select-input{
+        background: none;
+        display: block;
+        border: none;
+        select{
+          border: solid 1px $defauntTextColor;
+          border-radius: 10px;
+          background-color: #f5f5f5;
+          display: block;
+          border: none;
+          outline: none !important;
+          width: 100%;
+          font-family: $mainFont !important;
+          letter-spacing: 1px;
+          font-size: $defauntTextSize;
+          margin-top: -1px;
+          box-shadow: none !important;
+          padding: 5px 0px 5px 10px !important;
+          margin-bottom: 5px;
+          &:focus-visible{
+            outline: none !important;
+          }
+        }
+      }
+    }
+
+    .btn-custom{
+      margin-top: 15px;
+      width: 100%;
+      display: block;
+    }
+
+    .error{
+      width: 100%;
+      span{
+        color: $mainRed;
+        font-size: small;
+      }
+    }
+  }
+  .cover-img{
+    img{
+      min-height: 460px;
+      max-height: 460px;
+      position: relative;
+      z-index: -1;
+      margin-left: -30px;
+    }
+  }
+}
+
+.old-info{
+  font-size: 12px;
+  margin-left: 5px;
+  letter-spacing: 2px;
+}

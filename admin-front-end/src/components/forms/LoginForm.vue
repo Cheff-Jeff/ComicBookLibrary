@@ -71,9 +71,21 @@
     <div class="loginError error" v-if="authorizedError">
       <span>{{authorizedError}}</span>
     </div>
-    <button type="submit" class="btn btn-custom">
-      Login
-    </button>
+    <div v-auto-animate>
+      <button type="submit" class="btn btn-custom" disabled v-if="loading">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+          <circle cx="50" cy="50" r="32" stroke-width="8" stroke="#fff" stroke-dasharray="50.26548245743669 50.26548245743669" fill="none" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
+          </circle>
+          <circle cx="50" cy="50" r="23" stroke-width="8" stroke="#fff" stroke-dasharray="36.12831551628262 36.12831551628262" stroke-dashoffset="36.12831551628262" fill="none" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;-360 50 50"></animateTransform>
+          </circle>
+        </svg>
+      </button>
+      <button type="submit" class="btn btn-custom" v-else>
+        Login
+      </button>
+    </div>
   </form>
 </template>
 
@@ -87,6 +99,7 @@
         passwordError: '',
         passwordType: 'password',
         authorizedError: '',
+        loading: ''
       }
     },
     methods: {
@@ -105,9 +118,13 @@
         this.checkEmail();
 
         if(this.emailError == '' && this.passwordError == ''){
+          this.loading = 'loading'
           const authorized = await checkUser(this.email, this.password);
+          
           authorized ? this.$router.push("overview") : 
           this.authorizedError = "Your email or password was incorrect. Please try again."
+          
+          this.loading = ''
         }
       }
     }

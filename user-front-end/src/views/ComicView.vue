@@ -1,9 +1,10 @@
 <script setup>
   import { useRoute } from 'vue-router';
-  import { useFetch } from '../assets/javascript/fetchNewComics';
-  import ComicDetail from '../components/ComicDetail.vue';
-  import BannerRight from '../components/BannerRight.vue';
+  import { useFetch } from '@/assets/javascript/fetchNewComics';
+  import ComicDetail from '@/components/ComicDetail.vue';
+  import BannerRight from '@/components/BannerRight.vue';
   import { addItem } from '@/assets/javascript/library'
+  import { ComicHub } from '@/assets/javascript/SignalR';
 
   const route = useRoute();
   const comic = useFetch(`${import.meta.env.VITE_API_COMICS_URL}/${route.params.slug}`);
@@ -32,11 +33,20 @@
 
 <script>
 export default {
+  data() {
+    return {
+      hub: null
+    }
+  },
+  mounted() {
+    this.hub = new ComicHub()
+  },
   methods: {
-    async addComic(id) {
+    async addComic() {
       if(sessionStorage.getItem('user')){
         let result = await addItem(this.comic.id)
         console.log(result)
+        this.hub.addNewPopularity(this.comic.id)
       }
     }
   },

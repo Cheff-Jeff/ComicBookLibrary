@@ -7,8 +7,6 @@
     errArtistIdEmp, errArtistId, errCoverArtistIdEmp,errCoverArtistId, 
     errPublicherIdEmp, errPublicherId, errImageEmp, errImage
   } from '@/assets/javascript/validation'
-  // import PublicherForm from '@/components/forms/PublicherForm.vue';
-  // import { ref } from 'vue';
 
   const publichers = useFetch(`${import.meta.env.VITE_API_PUBLICHERS_URL}`);
   const writers = useFetch(`${import.meta.env.VITE_API_WRITHERS_URL}`);
@@ -33,106 +31,145 @@
 </script>
 
 <template>
-  <form @submit.prevent="submit">
-    <div class="row mt-5 pt-5">
-      <div class="col-md-6">
-        <div class="input-wrapper form-group">
-          <input v-model="Title" @blur="checkTitle" @keyup="checkTitle" class="form-control" type="text" name="Title" id="">
-          <span>{{TitleError}}</span>
-        </div>
+  <div class="page-wrap">
+    <section class="form">
+      <div class="title-wrap">
+        <h1 v-if="apiType == 'post'">Add comic</h1>
+        <h1 v-else>Update comic</h1>
       </div>
-      <div class="col-md-6">
-        <div v-if="oldImg">
-          <img :src="`${imgLink}/${oldImg}`" alt="oldCover" style="max-width: 150px;">
-        </div>
-        <div class="input-wrapper form-group">
-          <input class="form-control" type="file" id="formFile" @change="checkImage">
-          <span>{{imageError}}</span>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="input-wrapper form-group">
-          <textarea v-model="Description" @blur="checkDescription" @keyup="checkDescription" class="form-control" name="Description" rows="3"></textarea>
-          <span>{{DescriptionError}}</span>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <span v-if="oldPublicherId && oldPublicher">
-          currend publicher: {{oldPublicher}}
-        </span>
-        <select name="" class="form-control" v-model="Publicher" @change="checkPublicher">
-          <option v-if="oldPublicherId" value="" disabled selected>Select a new publicher.</option>
-          <option v-else value="" disabled selected>Select a publicher.</option>
-          <option 
-            v-for="publicher in publichers"
-            :key="publicher.id"
-            :value="publicher.id">
-            <span>
-              {{publicher.name}}
+      <form @submit.prevent="submit">
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <div class="input-wrap">
+              <input 
+                v-model="Title" 
+                @blur="checkTitle" 
+                @keyup="checkTitle" 
+                class="form-control" 
+                type="text" 
+                name="Title" 
+                id=""
+                placeholder="Comic title"
+              >
+            </div>
+            <div v-if="TitleError" class="error">
+              <span>{{TitleError}}</span>
+            </div>
+          </div>
+          <div class="col-md-6 mb-2">
+            <div class="input-wrap">
+              <input class="form-control" type="file" id="formFile" @change="checkImage">
+            </div>
+            <div v-if="imageError" class="error">
+              <span>{{imageError}}</span>
+            </div>
+          </div>
+          <div class="col-md-12 mb-2">
+            <div class="input-wrap">
+              <textarea placeholder="Comic description" v-model="Description" @blur="checkDescription" @keyup="checkDescription" class="form-control" name="Description" rows="3"></textarea>
+            </div>
+            <div v-if="DescriptionError" class="error">
+              <span>{{DescriptionError}}</span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <span class="old-info" v-if="oldPublicherId && oldPublicher">
+              currend publicher: {{oldPublicher}}
             </span>
-          </option>
-        </select>
-        <span>{{PucherError}}</span>
-      </div>
-      <div class="col-md-3">
-        <span v-if="oldWriterId && oldWriter">
-          currend writer: {{oldWriter}}
-        </span>
-        <select name="" class="form-control" v-model="Writer" @change="checkWhriter">
-          <option v-if="oldWriterId" value="" disabled selected>Select a new writer.</option>
-          <option v-else value="" disabled selected>Select a writer.</option>
-          <option 
-            v-for="writer in writers"
-            :key="writer.id"
-            :value="writer.id">
-            <span>
-              {{writer.name}}
+            <div class="input-wrap select-input">
+              <select name="" class="form-control" v-model="Publicher" @change="checkPublicher">
+                <option v-if="oldPublicherId" value="" disabled selected>Select a new publicher.</option>
+                <option v-else value="" disabled selected>Select a publicher.</option>
+                <option 
+                  v-for="publicher in publichers"
+                  :key="publicher.id"
+                  :value="publicher.id">
+                  <span>
+                    {{publicher.name}}
+                  </span>
+                </option>
+              </select>
+              <div v-if="PucherError" class="error">
+                <span>{{PucherError}}</span>>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <span class="old-info" v-if="oldWriterId && oldWriter">
+              currend writer: {{oldWriter}}
             </span>
-          </option>
-        </select>
-        <span>{{WriterError}}</span>
-      </div>
-      <div class="col-md-3">
-        <span v-if="oldArtistId && oldArtist">
-          currend artist: {{oldArtist}}
-        </span>
-        <select name="" class="form-control" v-model="Artist" @change="checkArtist">
-          <option v-if="oldArtistId" value="" disabled selected>Select a new artist.</option>
-          <option v-else value="" disabled selected>Select an artist.</option>
-          <option 
-            v-for="artist in artists"
-            :key="artist.id"
-            :value="artist.id">
-            <span>
-              {{artist.name}}
+            <div class="input-wrap select-input">
+              <select name="" class="form-control" v-model="Writer" @change="checkWhriter">
+                <option v-if="oldWriterId" value="" disabled selected>Select a new writer.</option>
+                <option v-else value="" disabled selected>Select a writer.</option>
+                <option 
+                  v-for="writer in writers"
+                  :key="writer.id"
+                  :value="writer.id">
+                  <span>
+                    {{writer.name}}
+                  </span>
+                </option>
+              </select>
+              <div v-if="WriterError" class="error">
+                <span>{{WriterError}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <span class="old-info" v-if="oldArtistId && oldArtist">
+              currend artist: {{oldArtist}}
             </span>
-          </option>
-        </select>
-        <span>{{ArtisError}}</span>
-      </div>
-      <div class="col-md-3">
-        <span v-if="oldCoverArtistId && oldCoverArtist">
-          currend cover artist: {{oldCoverArtist}}
-        </span>
-        <select name="" class="form-control" v-model="CoverArtist" @change="checkCoverArtist">
-          <option v-if="oldCoverArtistId" value="" disabled selected>Select a new cover artist.</option>
-          <option v-else value="" disabled selected>Select a cover artist.</option>
-          <option 
-            v-for="artist in artists"
-            :key="artist.id"
-            :value="artist.id">
-            <span>
-              {{artist.name}}
+            <div class="input-wrap select-input">
+              <select name="" class="form-control" v-model="Artist" @change="checkArtist">
+                <option v-if="oldArtistId" value="" disabled selected>Select a new artist.</option>
+                <option v-else value="" disabled selected>Select an artist.</option>
+                <option 
+                  v-for="artist in artists"
+                  :key="artist.id"
+                  :value="artist.id">
+                  <span>
+                    {{artist.name}}
+                  </span>
+                </option>
+              </select>
+              <div v-if="ArtisError" class="error">
+                <span>{{ArtisError}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <span class="old-info" v-if="oldCoverArtistId && oldCoverArtist">
+              currend cover artist: {{oldCoverArtist}}
             </span>
-          </option>
-        </select>
-        <span>{{CoverArtisError}}</span>
-      </div>
+            <div class="input-wrap select-input">
+              <select name="" class="form-control" v-model="CoverArtist" @change="checkCoverArtist">
+                <option v-if="oldCoverArtistId" value="" disabled selected>Select a new cover artist.</option>
+                <option v-else value="" disabled selected>Select a cover artist.</option>
+                <option 
+                  v-for="artist in artists"
+                  :key="artist.id"
+                  :value="artist.id">
+                  <span>
+                    {{artist.name}}
+                  </span>
+                </option>
+              </select>
+              <div v-if="CoverArtisError" class="error">
+                <span>{{CoverArtisError}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-custom">
+          Add comic
+        </button>
+      </form>
+    </section>
+    <div v-if="oldImg" class="cover-img">
+      <img :src="`${imgLink}/${oldImg}`" alt="oldCover">
     </div>
-    <button type="submit" class="btn btn-primary">
-      Add comic
-    </button>
-  </form>
+  </div>
 </template>
 
 <script>
@@ -181,19 +218,9 @@ export default {
         },
         ImageFile: ''
       },
-      // publicherForm: '',
-      // writerForm: '',
-      // ArtistForm: '',
     }
   },
   methods: {
-    // updatePublichers(){ 
-    //   console.log(useFetch(`${import.meta.env.VITE_API_PUBLICHERS_URL}`))
-    //   this.openPublicher()
-    // },
-    // openPublicher(){
-    //   this.publicherForm = this.publicherForm == '' ? 'open' : ''
-    // },
     checkImage(e) {
       console.log(e)
       console.log(e.target.files)
@@ -306,6 +333,6 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+@import "../../assets/styles/forms/comicForm.scss";
 </style>

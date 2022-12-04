@@ -9,30 +9,28 @@
 
 <template>
   <Header></Header>
-  <div class="constainer pt-5">
-    <div class="row pt-5">
-      <div class="col-md-12 pt-5">
-        <div class="row">
-          <div class="col-md-3" v-for="writer in writers" :key="writer.id">
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 spacer" v-for="writer in writers" :key="writer.id">
+          <div class="item-wrap">
             <p>
               {{writer.name}}
             </p>
-            <div class="row">
+            <div class="row justify-content-between">
               <div class="col-md-6">
-                <RouterLink :to="{name: 'updateWriter', params: { id: writer.id }}">
-                  <span class="btn btn-primary">
-                    Edit
-                  </span>
+                <RouterLink :to="{name: 'updateWriter', params: { id: writer.id }}" class="btn btn-custom">
+                  Edit
                 </RouterLink>
               </div>
               <div class="col-md-6">
                 <button 
-                  class="btn btn-danger" 
+                  class="btn btn-custom-red" 
                   data-toggle="modal" 
                   data-target="#deleteModal"
                   @click="openModel(writer.id, writer.name)"
                 >
-                  <span>Delete</span>
+                  Delete
                 </button>
               </div>
             </div>
@@ -41,29 +39,26 @@
       </div>
     </div>
   </div>
-
+  
   <div class="wrapper" v-auto-animate>
-    <div class="modal" :class="modalToggle" @click="closeModal">
-      <div class="container mt-5 bg-white">
-        <div class="modal-header">
+    <div class="delete-modal" :class="modalToggle" @click="closeModal">
+      <div @click.stop class="modal-wrap">
+        <div class="custom-modal-head">
           <h5>Delete writer</h5>
-          <button type="button" class="close" @click="closeModal">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <svg @click="closeModal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M175 175C184.4 165.7 199.6 165.7 208.1 175L255.1 222.1L303 175C312.4 165.7 327.6 165.7 336.1 175C346.3 184.4 346.3 199.6 336.1 208.1L289.9 255.1L336.1 303C346.3 312.4 346.3 327.6 336.1 336.1C327.6 346.3 312.4 346.3 303 336.1L255.1 289.9L208.1 336.1C199.6 346.3 184.4 346.3 175 336.1C165.7 327.6 165.7 312.4 175 303L222.1 255.1L175 208.1C165.7 199.6 165.7 184.4 175 175V175zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z"/></svg>
         </div>
-        <div class="modal-body">
-          <p class="text-dark">
-            Are you sure you want to delete writer:
+        <div class="custom-modal-body">
+          <p>
+              Are you sure you want to delete writer: {{txt}}
           </p>
-          <p class="text-dark">{{txt}}</p>
         </div>
-        <div class="modal-footer">
+        <div class="custom-modal-footer">
           <div class="row">
             <div class="col-md-6">
-              <button type="button" class="btn btn-secondary" @click="closeModal">Cancel</button>
+              <button type="button" class="btn btn-custom" @click="closeModal">Cancel</button>
             </div>
             <div class="col-md-6">
-              <button type="button" class="btn btn-danger" @click="deleteWriter">Delete</button>
+              <button type="button" class="btn btn-custom-red" @click="deleteWriter">Delete</button>
             </div>
           </div>
         </div>
@@ -78,7 +73,7 @@ export default {
     return {
       id: '',
       txt: '',
-      modalToggle: 'd-none'
+      modalToggle: 'hide'
     }
   },
   methods: {
@@ -86,12 +81,12 @@ export default {
       console.log(Id, Txt)
       this.id = Id,
       this.txt = Txt
-      this.modalToggle = 'd-block'
+      this.modalToggle = 'open'
     },
     closeModal() {
       this.id = '',
       this.txt = '',
-      this.modalToggle = 'd-none'
+      this.modalToggle = 'hide'
     },
     async deleteWriter(){
       await deleteRequest(this.id, 'Writers')
@@ -100,3 +95,7 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+  @import "../assets/styles/pages/Writers.scss";
+</style>
