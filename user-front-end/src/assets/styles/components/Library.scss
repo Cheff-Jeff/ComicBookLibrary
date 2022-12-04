@@ -2,6 +2,10 @@
 @import '../components/Buttons.scss';
 .lib-wrap{
   min-height: inherit;
+  align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
   .spacer{
     margin-top: 110px;
   }
@@ -36,4 +40,85 @@
     margin: auto;
     display: table;
   }
+}
+.comics-wrapper{
+  padding-top: 100px;
+}
+.card-row{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px 0;
+  width: fit-content;
+  margin: auto;
+  .comic-card{
+    flex: 1 0 21%;
+    height: 450px;
+    width: 400px;
+    min-width: 320px;
+    max-width: 320px;
+    padding: 15px;
+    border-radius: 16px;
+    background: #17141d;
+    box-shadow: -1rem 0 3rem #000;
+    display: flex;
+    flex-direction: column;
+    transition: .2s;
+    margin: 0;
+    scroll-snap-align: start;
+    clear: both;
+    position: relative;
+    &:focus-within~.comic-card{
+      transform: translateX(130px);
+    }
+    &:hover~.comic-card {
+      transform: translateX(130px);
+    }
+    &:hover {
+      transform: translateY(-1rem);
+    }
+    &:not(:first-child) {
+      margin-left: -130px;
+    }
+
+    .card-head{
+      margin-bottom: 5px;
+      p {
+        font-size: 16px;
+        line-height: 18px;
+        min-height: 37px;
+        color: $defauntTextColor;
+        font-family: $mainFont;
+        letter-spacing: 1.5px;
+        border: 0;
+        display: inline-block;
+        margin-bottom: 0px;
+        margin-left: 3px;
+      }
+    }
+
+    .card-body{
+      .img-wrapper{
+        margin-bottom: 12px;
+        min-height: 322px;
+        img{
+          max-width: 215px;
+          margin: auto;
+        }
+      }
+      .btn{
+        font-size: 15px;
+        &.btn-custom{
+          width: 84px;
+        }
+        &.btn-custom-red{
+          float: right;
+        }
+      }
+    }
+  }
+}
+
+.custom-spacer{
+  display: flex;
+  justify-content: center;
 }
