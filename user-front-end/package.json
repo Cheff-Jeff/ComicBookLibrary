@@ -6,9 +6,8 @@
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "test:unit": "vitest --environment jsdom",
-    "test:e2e": "start-server-and-test preview :4173 'cypress run --e2e'",
-    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' :4173 'cypress open --e2e'",
-    "e2e": "cypress open"
+    "test:e2e": "start-server-and-test preview :4173 'cypress run --record --key 762e07a9-b53b-43a8-ad5a-99eea47daa17 --e2e'",
+    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' :4173 'cypress open --e2e'"
   },
   "dependencies": {
     "@formkit/auto-animate": "^1.0.0-beta.5",
