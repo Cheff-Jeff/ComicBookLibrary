@@ -26,7 +26,7 @@
       :Writer="comic.writer.name"
       :Artist="comic.artist.name"
       :Cover-artist="comic.coverArtist.name"
-      @AddComic="addComic"
+      @AddComic="addComic(comic.id)"
     />
   </div>
 </template>
@@ -42,11 +42,11 @@ export default {
     this.hub = new ComicHub()
   },
   methods: {
-    async addComic() {
+    async addComic(id) {
       if(sessionStorage.getItem('user')){
-        let result = await addItem(this.comic.id)
+        let result = await addItem(id)
         console.log(result)
-        this.hub.addNewPopularity(this.comic.id)
+        this.hub.addNewPopularity(id)
       }
     }
   },
