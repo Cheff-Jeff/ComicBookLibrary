@@ -48,13 +48,13 @@
 
 <template>
   <section class="content">
-    <div class="background" :style="{ 'background-image': `url(${imgLink}/${this.Image})` }"></div>
+    <div class="background" :style="{ 'background-image': `url(${imgLink}/${Image})` }"></div>
     <div class="comic-wrap">
       <div class="container">
         <div class="row">
           <div class="col-md-5">
             <div class="img-wrap">
-              <img :src="`${imgLink}/${this.Image}`" alt="comic cover">
+              <img :src="`${imgLink}/${Image}`" alt="comic cover">
             </div>
           </div>
           <div class="col-md-7">

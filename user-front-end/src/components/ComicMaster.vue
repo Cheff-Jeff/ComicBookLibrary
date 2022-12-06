@@ -21,7 +21,7 @@
 <template>
   <div class="comic">
     <a @click="teleport">
-      <img :src="`${imgLink}/${this.Image}`" alt="Comic book cover">
+      <img :src="`${imgLink}/${Image}`" alt="Comic book cover">
       <p>{{ Title }}</p>
     </a>
   </div>
@@ -29,14 +29,6 @@
 
 <script>
   export default {
-    data(){
-      return{
-        imgPath: ''
-      }
-    },
-    mounted() {
-      this.imgPath = `/images/comics/${this.Image}`
-    },
     methods: {
       teleport() {
         this.$router.push({ name: 'comicDetail', params: { slug: this.Link } })
