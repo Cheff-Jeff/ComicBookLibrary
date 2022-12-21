@@ -3,6 +3,7 @@ using ComicsBackend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComicsBackend.Data.Migrations
 {
     [DbContext(typeof(ComicDbContext))]
-    partial class ComicDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221221113247_update-many-to-many")]
+    partial class updatemanytomany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,21 +270,6 @@ namespace ComicsBackend.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("HeroTeam", b =>
-                {
-                    b.Property<int>("heroesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("teamsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("heroesId", "teamsId");
-
-                    b.HasIndex("teamsId");
-
-                    b.ToTable("HeroTeam");
-                });
-
             modelBuilder.Entity("ComicsBackend.Models.Comic", b =>
                 {
                     b.HasOne("ComicsBackend.Models.Artist", "Artist")
@@ -327,21 +314,6 @@ namespace ComicsBackend.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Comic");
-                });
-
-            modelBuilder.Entity("HeroTeam", b =>
-                {
-                    b.HasOne("ComicsBackend.Models.Hero", null)
-                        .WithMany()
-                        .HasForeignKey("heroesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ComicsBackend.Models.Team", null)
-                        .WithMany()
-                        .HasForeignKey("teamsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

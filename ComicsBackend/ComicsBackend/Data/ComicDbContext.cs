@@ -10,6 +10,12 @@ namespace ComicsBackend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Hero>()
+                .HasMany(t => t.teams)
+                .WithMany(h => h.heroes);
+            modelBuilder.Entity<Team>()
+                .HasMany(h => h.heroes)
+                .WithMany(t => t.teams);
             modelBuilder.Entity<Comic>()
                 .HasOne(a => a.Artist)
                 .WithMany()
@@ -26,7 +32,9 @@ namespace ComicsBackend.Data
         public DbSet<Writer> Writers { get; set; }
         public DbSet<Comic> Comics { get; set; }
         public DbSet<Library> libraries { get; set; }
-    
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Hero> Heroes { get; set; }
+
         //Add-Migration Name -o folder/folder
         //Update-Database
     }
