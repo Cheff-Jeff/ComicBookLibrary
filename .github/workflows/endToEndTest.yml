@@ -41,7 +41,7 @@ jobs:
       - name: Run container frond-end
         run: |
           ls
-          docker run -d --network=my-bridge-network -p 8082:8082 --name app cheffjeff/comic-book-library:userfrondend
+          docker run -d --network=my-bridge-network -p 8082:80 --name app cheffjeff/comic-book-library:userfrondend
           docker network inspect my-bridge-network
 
       # - name: check api running
