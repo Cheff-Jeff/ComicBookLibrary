@@ -28,7 +28,7 @@ jobs:
       - name: Run container user-api
         run: |
           ls
-          docker run -d --network=my-bridge-network --ip 192.168.2.3 -p 8081:80 -e DATABASE_CONECTION='Server=192.168.2.2,1433;Database=master;User Id=sa;Password=Password123;' --name api1 cheffjeff/comic-book-library:userbackend
+          docker run -d --network=my-bridge-network --ip 192.168.2.3 -p 8081:8081 -e DATABASE_CONECTION='Server=192.168.2.2,1433;Database=master;User Id=sa;Password=Password123;' --name api1 cheffjeff/comic-book-library:userbackend
       - name: Run container database
         run: |
           ls
@@ -41,7 +41,7 @@ jobs:
       - name: Run container frond-end
         run: |
           ls
-          docker run -d --network=my-bridge-network -p 8082:80 --name app cheffjeff/comic-book-library:userfrondend
+          docker run -d --network=my-bridge-network -p 8082:8082 --name app cheffjeff/comic-book-library:userfrondend
           docker network inspect my-bridge-network
 
       - name: check api running
