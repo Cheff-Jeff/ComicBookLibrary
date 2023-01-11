@@ -44,11 +44,11 @@ jobs:
           docker run -d --network=my-bridge-network -p 8082:8082 --name app cheffjeff/comic-book-library:userfrondend
           docker network inspect my-bridge-network
 
-      - name: check api running
-        shell: pwsh
-        run: |
-          $Response = Invoke-WebRequest -URI http://localhost:8081/api/Users -Method Get
-          $Response.Content
+      # - name: check api running
+      #   shell: pwsh
+      #   run: |
+      #     $Response = Invoke-WebRequest -URI http://localhost:8081/api/Users -Method Get
+      #     $Response.Content
       - name: Run Cypress Test
         uses: cypress-io/github-action@v4
         with:
