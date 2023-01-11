@@ -47,7 +47,7 @@ jobs:
       - name: check api running
         shell: pwsh
         run: |
-          $Response = Invoke-WebRequest -URI http://localhost:8081/api/Users
+          $Response = Invoke-WebRequest -URI http://localhost:8081/api/Users -Method Get
           $Response.Content
       - name: Run Cypress Test
         uses: cypress-io/github-action@v4
