@@ -5,6 +5,7 @@ ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 EXPOSE 80
 EXPOSE 443
 
+ENV DATABASE_CONECTION="Server=mssqlstud.fhict.local;Database=dbi483908_users;User Id=dbi483908_users;Password=data;TrustServerCertificate=true;"
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 WORKDIR /src

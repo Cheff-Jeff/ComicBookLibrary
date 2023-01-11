@@ -3,6 +3,7 @@ using UserBackend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+string dbEnv = Environment.GetEnvironmentVariable("DATABASE_CONECTION");
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -13,8 +14,17 @@ builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
 {
     build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 }));
-builder.Services.AddDbContext<UserDbContext>(
-    o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+builder.Services.AddDbContext<UserDbContext>(options => 
+{
+    if (dbEnv != null)
+    {
+        options.UseSqlServer(dbEnv);
+    }
+    else 
+    { 
+        options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+    }
+});
 
 var app = builder.Build();
 
