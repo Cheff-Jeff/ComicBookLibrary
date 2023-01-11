@@ -53,7 +53,7 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           working-directory: './user-front-end'
-          command: npx cypress run
+          command: npx cypress run --record --key 762e07a9-b53b-43a8-ad5a-99eea47daa17
           browser: chrome
       - uses: actions/upload-artifact@v1
         if: always()
