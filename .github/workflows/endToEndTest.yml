@@ -28,16 +28,20 @@ jobs:
       - name: Run container user-api
         run: |
           ls
-          docker run -d --network=my-bridge-network --ip 192.168.2.3 -p 8081:8081 -e DATABASE_CONECTION='Server=192.168.2.2,1433;Database=master;User Id=sa;Password=Password123;' -e ASPNETCORE_ENVIRONMENT=Development --name api1 cheffjeff/comic-book-library:userbackend
+          docker run -d --network=my-bridge-network --ip 192.168.2.3 -p 8081:8081 -e DATABASE_CONECTION='Server=192.168.2.2,1433;Database=master;User Id=sa;Password=Password123;' --name api1 cheffjeff/comic-book-library:userbackend
       - name: Run container database
         run: |
           ls
           docker run -d --network=my-bridge-network --ip 192.168.2.2 -p 1433:1433 --name database cheffjeff/comic-book-library:database-new
+      - name: Run container comic database
+        run: |
+          ls
+          docker run -d --network=my-bridge-network --ip 192.168.2.5 -p 1450:1450 --name comicbase cheffjeff/comic-book-library:database-comic
 
       - name: Run container comic-api
         run: |
           ls
-          docker run -d --network=my-bridge-network -p 8080:8080 --name api2 cheffjeff/comic-book-library:comicsbackend
+          docker run -d --network=my-bridge-network --ip 192.168.2.4 -p 8080:8080 -e DATABASE_CONECTION='Server=192.168.2.5,1450;Database=master;User Id=sa;Password=Password123;' --name api2 cheffjeff/comic-book-library:comicsbackend
       - name: Run container frond-end
         run: |
           ls
