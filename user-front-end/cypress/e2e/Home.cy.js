@@ -1,5 +1,5 @@
 import Chance from 'chance';
-const chance = new Chance(); 
+const chance = new Chance();
 
 describe('My First Test', () => {
   it('visits the app root url', () => {
