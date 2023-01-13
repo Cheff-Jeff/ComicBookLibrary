@@ -28,7 +28,7 @@ jobs:
       - name: Run container user-api
         run: |
           ls
-          docker run -d --network=my-bridge-network --ip 192.168.2.3 -p 8081:80 -e DATABASE_CONECTION='Server=192.168.2.2,1433;Database=master;Integrated Security=False;User Id=sa;Password=Password123;MultipleActiveResultSets=True' -e ASPNETCORE_ENVIRONMENT=Development --name api1 cheffjeff/comic-book-library:userbackend
+          docker run -d --network=my-bridge-network --ip 192.168.2.3 -p 8081:80 -e DATABASE_CONECTION='Server=192.168.2.2,1433;Database=Master;Integrated Security=False;User Id=sa;Password=Password123;MultipleActiveResultSets=True' -e ASPNETCORE_ENVIRONMENT=Development --name api1 cheffjeff/comic-book-library:userbackend
       - name: Run container database
         run: |
           ls
@@ -41,7 +41,7 @@ jobs:
       - name: Run container comic-api
         run: |
           ls
-          docker run -d --network=my-bridge-network --ip 192.168.2.4 -p 8080:80 -e DATABASE_CONECTION='Server=192.168.2.5,1450;Database=master;Integrated Security=False;User Id=sa;Password=Password123;MultipleActiveResultSets=True' -e ASPNETCORE_ENVIRONMENT=Development --name api2 cheffjeff/comic-book-library:comicsbackend
+          docker run -d --network=my-bridge-network --ip 192.168.2.4 -p 8080:80 -e DATABASE_CONECTION='Server=192.168.2.5,1450;Database=Master;Integrated Security=False;User Id=sa;Password=Password123;MultipleActiveResultSets=True' -e ASPNETCORE_ENVIRONMENT=Development --name api2 cheffjeff/comic-book-library:comicsbackend
       - name: Run container frond-end
         run: |
           ls
