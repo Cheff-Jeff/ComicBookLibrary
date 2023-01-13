@@ -48,6 +48,12 @@ jobs:
           docker run -d --network=my-bridge-network -p 8082:80 --name app cheffjeff/comic-book-library:userfrondend
           docker network inspect my-bridge-network
 
+      - name: checks
+        run : | 
+          docker network inspect my-bridge-network 
+          docker container ls
+          docker exec api1 env
+          docker exec api2 env
       - name: check api running
         shell: pwsh
         run: |
