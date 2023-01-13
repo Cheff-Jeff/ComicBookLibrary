@@ -28,7 +28,7 @@ jobs:
       - name: Run container user-api
         run: |
           ls
-          docker run -d --network=my-bridge-network --ip 192.168.2.3 -p 8081:8081 -e DATABASE_CONECTION='Server=192.168.2.2,1433;Database=master;User Id=sa;Password=Password123;' -e ASPNETCORE_ENVIRONMENT=Development --name api1 cheffjeff/comic-book-library:userbackend
+          docker run -d --network=my-bridge-network --ip 192.168.2.3 -p 8081:80 -e DATABASE_CONECTION='Server=192.168.2.2,1433;Database=master;User Id=sa;Password=Password123;' -e ASPNETCORE_ENVIRONMENT=Development --name api1 cheffjeff/comic-book-library:userbackend
       - name: Run container database
         run: |
           ls
@@ -41,18 +41,18 @@ jobs:
       - name: Run container comic-api
         run: |
           ls
-          docker run -d --network=my-bridge-network --ip 192.168.2.4 -p 8080:8080 -e DATABASE_CONECTION='Server=192.168.2.5,1450;Database=master;User Id=sa;Password=Password123;' -e ASPNETCORE_ENVIRONMENT=Development --name api2 cheffjeff/comic-book-library:comicsbackend
+          docker run -d --network=my-bridge-network --ip 192.168.2.4 -p 8080:80 -e DATABASE_CONECTION='Server=192.168.2.5,1450;Database=master;User Id=sa;Password=Password123;' -e ASPNETCORE_ENVIRONMENT=Development --name api2 cheffjeff/comic-book-library:comicsbackend
       - name: Run container frond-end
         run: |
           ls
           docker run -d --network=my-bridge-network -p 8082:80 --name app cheffjeff/comic-book-library:userfrondend
           docker network inspect my-bridge-network
 
-      # - name: check api running
-      #   shell: pwsh
-      #   run: |
-      #     $Response = Invoke-WebRequest -URI http://192.168.2.3:8081/api/Users -Method Get
-      #     $Response.Content
+      - name: check api running
+        shell: pwsh
+        run: |
+          $Response = Invoke-WebRequest -URI http://192.168.2.3:8081/api/Users -Method Get
+          $Response.Content
       - name: Run Cypress Test
         uses: cypress-io/github-action@v4
         with:
