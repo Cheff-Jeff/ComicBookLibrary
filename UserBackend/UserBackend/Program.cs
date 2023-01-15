@@ -14,14 +14,14 @@ builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
 {
     build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 }));
-builder.Services.AddDbContext<UserDbContext>(options => 
+builder.Services.AddDbContext<UserDbContext>(options =>
 {
     if (dbEnv != null)
     {
         options.UseSqlServer(dbEnv);
     }
-    else 
-    { 
+    else
+    {
         options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
     }
 });
