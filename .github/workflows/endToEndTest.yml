@@ -54,6 +54,11 @@ jobs:
           docker container ls
           docker exec api1 env
           docker exec api2 env
+      - name: check comic api running
+        shell: pwsh
+        run: |
+          $Response = Invoke-WebRequest -URI http://localhost:8080/api/Comics/PopularComics
+          $Response.Content
       - name: check api running
         shell: pwsh
         run: |
