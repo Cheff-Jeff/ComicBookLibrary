@@ -15,7 +15,7 @@ describe('Test routing gourd', () => {
     cy.url().should('be.equal', `${Cypress.config("baseUrl")}/login`)
   })
 })
-
+ 
 describe('Test comic detail', () => {
   it('Blocks protected comic detail route', () => {
     cy.visit('/comics/10101010')
